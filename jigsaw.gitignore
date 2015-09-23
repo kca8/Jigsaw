@@ -1,20 +1,20 @@
 # =============== #
 # Unity generated #
 # =============== #
-Jigsaw/Temp/
-Jigsaw/Library/
+Temp/
+Library/
+Obj/
 
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
 # ===================================== #
 ExportedObj/
-obj/
 *.svd
 *.userprefs
-/*.csproj
+*.csproj
 *.pidb
 *.suo
-/*.sln
+*.sln
 *.user
 *.unityproj
 *.booproj
@@ -31,5 +31,5 @@ ehthumbs.db
 Thumbs.db
 
 # ===================================================== #
-# gitignore contents from S. Richmond via stackoverflow #
+# gitignore contents from S. Richmond and _Shockwave via stackoverflow #
 # ===================================================== #
