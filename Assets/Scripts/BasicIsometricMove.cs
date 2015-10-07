@@ -6,7 +6,7 @@ public class BasicIsometricMove : MonoBehaviour
 {
 	//modular scalar
 	public int velocity = 2;
-
+	
 	//called every frame
 	void Update()
 	{
