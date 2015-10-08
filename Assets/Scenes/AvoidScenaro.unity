@@ -222,9 +222,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 080770e10c1b3d14e915f775acf599d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sight: 5
+  sight: 1
   speed: 3
   tagToAvoid: Player
+  dontRunFrom: Plane
+  flee: 0
 --- !u!1 &465299468
 GameObject:
   m_ObjectHideFlags: 0
