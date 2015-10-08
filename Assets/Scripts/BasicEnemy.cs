@@ -6,9 +6,12 @@ public class BasicEnemy : MonoBehaviour {
 	public float moveSpeed = 3; //move speed
 	public float rotationSpeed = 2; //speed of turning
 	
+	
 	public int currentWaypoint = 0;
 	public Transform waypoint;
 	public Transform[] waypointList;
+    
+    public Transform player;
 	
 	
 	// Use this for initialization
@@ -22,20 +25,22 @@ public class BasicEnemy : MonoBehaviour {
 		//float step = 1/2 * moveSpeed * Time.deltaTime;
 		//transform.position = Vector3.MoveTowards(transform.position, target.position, step);
 		
-		if(currentWaypoint < this.waypointList.Length)
-		{
-			if(waypoint == null)
-				waypoint = waypointList[currentWaypoint];
+		if(waypoint != null) {
+			if(currentWaypoint < this.waypointList.Length)
+			{
+				if(waypoint == null)
+					waypoint = waypointList[currentWaypoint];
+				
+				walk();
+			}
 			
-			walk();
-		}
-		
-		else
-		{
-			currentWaypoint = 0;
-			print ("Reseting Waypoints!\n");
-			waypoint = waypointList[currentWaypoint];
-			print ("Current Waypoint = " + currentWaypoint + "\n");
+			else
+			{
+				currentWaypoint = 0;
+				print ("Reseting Waypoints!\n");
+				waypoint = waypointList[currentWaypoint];
+				print ("Current Waypoint = " + currentWaypoint + "\n");
+			}
 		}
 	}
 	

@@ -7,21 +7,18 @@ public class Sentry : MonoBehaviour {
 	public Transform target; //the enemy's target
 	public float moveSpeed = 3; //move speed
 	public float rotationSpeed = 2; //speed of turning
-	
-	public int currentWaypoint = 0;
-	public Transform waypointParent;
-	public Transform waypoint_goto;
-	public List<Transform> waypointList;
+
+	public int currentWaypoint = 0; //waypointList[] counter
+	public Transform waypointParent; //The object containing a set of waypoint_goto's
+	public Transform waypoint_goto; //The current waypoint objective
+	public List<Transform> waypointList; //An array of waypoint_goto's
 	
 	// Use this for initialization
 	void Start () {
-		//Transform[] Path = waypoint.GetComponentsInChildren<Transform>();
 		
 		foreach (Transform child in waypointParent){
 			waypointList.Add(child.transform);
 		}
-		
-		print("Size of waypointList = " + this.waypointList.Count);
 		
 	}
 	
@@ -38,12 +35,16 @@ public class Sentry : MonoBehaviour {
 		else
 		{
 			currentWaypoint = 0;
-			print ("Reseting Waypoints!\n");
 			waypoint_goto = waypointList[currentWaypoint];
-			print ("Current Waypoint = " + currentWaypoint + "\n");
 		}
+		
 	}
 	
+	//-----------------------------------------------------------------
+	/// <summary>
+	/// Walk this instance.
+	/// </summary>
+	//-----------------------------------------------------------------
 	void walk(){
 		
 		// rotate towards the target
@@ -56,8 +57,6 @@ public class Sentry : MonoBehaviour {
 		{
 			currentWaypoint ++;
 			waypoint_goto = waypointList[currentWaypoint];
-			print ("Reached waypoint " + currentWaypoint + "\n");
-			//print ("Path Length = " + this.Path.Length + "\n");
 		}
 		
 	}

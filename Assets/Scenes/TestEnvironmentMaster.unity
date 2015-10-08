@@ -177,7 +177,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 222916649}
   m_LocalRotation: {x: -.239117622, y: -.369643867, z: .0990457758, w: .892399132}
-  m_LocalPosition: {x: 0, y: 17.320507, z: -10}
+  m_LocalPosition: {x: 0, y: 15.3000002, z: -8.89999962}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1961731740}
@@ -193,7 +193,6 @@ GameObject:
   - 33: {fileID: 222937912}
   - 65: {fileID: 222937911}
   - 23: {fileID: 222937910}
-  - 114: {fileID: 222937914}
   m_Layer: 0
   m_Name: EnemyNPC
   m_TagString: Enemy
@@ -255,20 +254,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
---- !u!114 &222937914
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 222937909}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed35c39e570dd0b489a10a9f5f8ce25f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  moveSpeed: 5
-  rotationSpeed: 5
 --- !u!1 &465299468
 GameObject:
   m_ObjectHideFlags: 0
@@ -569,6 +554,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e67136b076589a4f8559b15f662a2c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stuff: {fileID: 0}
 --- !u!1001 &824139396
 Prefab:
   m_ObjectHideFlags: 0
