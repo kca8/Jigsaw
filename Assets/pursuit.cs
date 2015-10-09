@@ -1,18 +1,18 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
-public class avoid : MonoBehaviour {
-
+public class pursuit : MonoBehaviour {
+	
 	private Vector3 origin;
 	public float sight = 5.0f;
 	public float velocity = 1.0f;
 	public float tDeviation = 0;
 	public string tagToAvoid;
 	public GameObject introvert;
-
+	
 	// Use this for initialization
 	void Start () {
-
+		
 	}
 	
 	// Update is called once per frame
@@ -20,27 +20,10 @@ public class avoid : MonoBehaviour {
 		origin = transform.position;
 		Vector3 away = observeForFlee(origin, sight, tagToAvoid);
 		travel(introvert, away, velocity, tDeviation);
-
-
+		
+		
 	}
-
-	public static void travel(GameObject introvert, Vector3 path, float speed, float tDev)
-	{
-		//Did not observe anything to respond to
-		if (path == Vector3.zero){
-			introvert.renderer.material.color = Color.red;
-		} 
-		//Found something to flee from and now will
-		else {
-			introvert.renderer.material.color = Color.yellow;
-			//float chosenAngle = Mathf.LerpAngle(-45, 45, randT (tDev));
-			//path = Quaternion.AngleAxis (chosenAngle, Vector3.up) * path;
-			//introvert.transform.forward = Vector3.RotateTowards(introvert.transform.forward, path, speed * Time.deltaTime, 0.0f);
-			Debug.Log (path.ToString("F4"));
-			introvert.transform.Translate(path * speed * Time.deltaTime);
-		}
-	}
-
+	
 	// -------------------------------------------------------------------------
 	///@author Keegan Anderson
 	///<summary>
@@ -62,7 +45,7 @@ public class avoid : MonoBehaviour {
 		Vector3 detectTotal = center;
 		Collider[] seenObjects = Physics.OverlapSphere(center, radius);
 		bool detected = false;
-
+		
 		for (int i = 0; i < seenObjects.Length; i++) {
 			if(seenObjects[i].gameObject.transform.tag == refTag){
 				Vector3 detectCurrent = (seenObjects[i].gameObject.transform.position + center);
@@ -75,10 +58,10 @@ public class avoid : MonoBehaviour {
 			return new Vector3(detectTotal.x * -1, 0, detectTotal.z * -1).normalized;
 		}
 		else {
-			 return Vector3.zero;
+			return Vector3.zero;
 		}
 	}
-
+	
 	// -------------------------------------------------------------------------
 	///@author Keegan Anderson
 	///<summary>
@@ -116,7 +99,23 @@ public class avoid : MonoBehaviour {
 			return Vector3.zero;
 		}
 	}
-
+	
+	public static void travel(GameObject introvert, Vector3 path, float speed, float tDev)
+	{
+		//Did not observe anything to respond to
+		if (path == Vector3.zero){
+			introvert.renderer.material.color = Color.red;
+		} 
+		//Found something to flee from and now will
+		else {
+			introvert.renderer.material.color = Color.yellow;
+			float chosenAngle = Mathf.LerpAngle(-45, 45, randT (tDev));
+			path = Quaternion.AngleAxis (chosenAngle, Vector3.up) * path;
+			introvert.transform.forward = Vector3.RotateTowards(introvert.transform.forward, path, speed * Time.deltaTime, 0.0f);
+			introvert.transform.Translate(path * speed * Time.deltaTime);
+		}
+	}
+	
 	// -------------------------------------------------------------------------
 	///@author Keegan Anderson
 	///<summary>
@@ -133,20 +132,20 @@ public class avoid : MonoBehaviour {
 	// -------------------------------------------------------------------------
 	public static float randT (float stdDev){
 		if(stdDev > .18f) stdDev = 0.18f;
-			else if (stdDev < 0.0f) stdDev = 0.0f;
+		else if (stdDev < 0.0f) stdDev = 0.0f;
 		//perfect value of t
 		float mean = 0.5f;
-
+		
 		//these are uniform(0,1) random doubles
 		float u1 = Random.value;
 		float u2 = Random.value;
-
+		
 		//random normal(0,1)
 		float randStdNormal = Mathf.Sqrt(-2.0f * Mathf.Log(u1)) * Mathf.Sin(2.0f * Mathf.PI * u2); 
-
+		
 		//random normal(mean,stdDev^2)
 		float randNormal = mean + stdDev * randStdNormal; 
-
+		
 		//TODO: normalize values to fall between 0 and 1 inclusively
 		//return normalize(randNormal);
 		return randNormal;

@@ -223,9 +223,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sight: 4
-  speed: 4
-  tDeviation: .180000007
+  velocity: 4
+  tDeviation: 0
   tagToAvoid: Player
+  introvert: {fileID: 222937909}
 --- !u!1 &465299468
 GameObject:
   m_ObjectHideFlags: 0
@@ -457,7 +458,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 748487d582b00d847bd57517f78d8e8f, type: 2}
+  - {fileID: 2100000, guid: 2ec862e1c069e114cacf7a9d03c9465e, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -492,7 +493,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1159771353}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.12372541, y: 0, z: -6.12372351}
+  m_LocalPosition: {x: -6.11999989, y: -.50999999, z: -6.11999989}
   m_LocalScale: {x: 40, y: 0, z: 40}
   m_Children: []
   m_Father: {fileID: 0}
