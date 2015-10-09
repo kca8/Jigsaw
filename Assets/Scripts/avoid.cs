@@ -11,11 +11,12 @@ public class avoid : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
+		
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		origin = transform.position;
 		Vector3 away = observeForFlee(origin, sight, tagToAvoid);
 
 		//Did not observe anything to flee from
@@ -34,6 +35,7 @@ public class avoid : MonoBehaviour {
 	}
 
 	// -------------------------------------------------------------------------
+	///@Keegan, Kirby, James
 	///<summary>
 	///Looks at all objects within a sphere of a given radius, centered on object
 	///Considers all objects designated with specified reference Name
