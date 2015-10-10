@@ -10,8 +10,8 @@ public class Sentry : MonoBehaviour {
 
 	public int currentWaypoint = 0; //waypointList[] counter
 	public Transform waypointParent; //The object containing a set of waypoint_goto's
-	public Transform waypoint_goto; //The current waypoint objective
-	public List<Transform> waypointList; //An array of waypoint_goto's
+	Transform waypoint_goto; //The current waypoint objective
+	List<Transform> waypointList = new List<Transform>(); //An array of waypoint_goto's
 	
 	// Use this for initialization
 	void Start () {
