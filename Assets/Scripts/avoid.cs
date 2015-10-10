@@ -4,20 +4,30 @@ using System.Collections;
 public class avoid : MonoBehaviour {
 
 	private Vector3 origin;
+	private float customT = 0.5f;
 	public float sight = 5.0f;
 	public float velocity = 1.0f;
 	public float tDeviation = 0;
+	public float newTDelay = 0;
 	public string tagToAvoid;
 	public GameObject introvert;
-	
+
+	void Start() {
+		InvokeRepeating("newT", 0, newTDelay);
+	}
+
 	// Update is called once per frame
 	void Update () {
 		origin = transform.position;
 		Vector3 away = observeForFlee(origin, sight, tagToAvoid);
-		travel(introvert, away, velocity, tDeviation);
+		travel(introvert, away, velocity, customT);
 	}
 
-	public static void travel(GameObject traveler, Vector3 path, float speed, float tDev)
+	void newT() {
+		customT = randT (tDeviation);
+	}
+
+	public static void travel(GameObject traveler, Vector3 path, float speed, float t)
 	{
 		//Did not observe anything to respond to
 		if (path == Vector3.zero){
@@ -26,7 +36,7 @@ public class avoid : MonoBehaviour {
 		//Found something to flee from and now will
 		else {
 			traveler.renderer.material.color = Color.yellow;
-			float chosenAngle = Mathf.LerpAngle(-45, 45, randT (tDev));
+			float chosenAngle = Mathf.LerpAngle(-45, 45, t);
 			path = Quaternion.AngleAxis (chosenAngle, Vector3.up) * path;
 
 			//rotate currently doesn't work - causes toMove to corkscrew towards nearest tagged object to avoid

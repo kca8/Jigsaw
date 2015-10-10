@@ -3,17 +3,27 @@ using System.Collections;
 
 public class chase : MonoBehaviour {
 	private Vector3 origin;
+	private float customT = 0.5f;
 	public float sight = 5.0f;
 	public float velocity = 1.0f;
 	public float tDeviation = 0;
+	public float newTDelay = 0;
 	public string tagToChase;
 	public GameObject stalker;
-
+	
+	void Start() {
+		InvokeRepeating("newT", 0, newTDelay);
+	}
+	
 	// Update is called once per frame
 	void Update () {
 		origin = transform.position;
 		Vector3 away = observeForChase(origin, sight, tagToChase);
-		travel(stalker, away, velocity, tDeviation);
+		travel(stalker, away, velocity, customT);
+	}
+	
+	void newT() {
+		customT = randT (tDeviation);
 	}
 
 	public static void travel(GameObject traveler, Vector3 path, float speed, float tDev)

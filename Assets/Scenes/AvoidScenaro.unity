@@ -222,9 +222,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 080770e10c1b3d14e915f775acf599d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sight: 4
-  velocity: 3
-  tDeviation: .5
+  sight: 6
+  velocity: 6
+  tDeviation: 4
+  newTDelay: 1
   tagToAvoid: Player
   introvert: {fileID: 222937909}
 --- !u!1 &358049894
@@ -312,9 +313,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c40669f372e57f41a15776f15706462, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sight: 5
-  velocity: 1
-  tDeviation: .100000001
+  sight: 6
+  velocity: 5
+  tDeviation: 2
+  newTDelay: 0
   tagToChase: Enemy
   stalker: {fileID: 358049894}
 --- !u!1 &465299468
@@ -470,7 +472,7 @@ Transform:
   m_PrefabInternal: {fileID: 2104050144}
   m_GameObject: {fileID: 1114723529}
   m_LocalRotation: {x: -.239117622, y: -.369643867, z: .0990457758, w: .892399132}
-  m_LocalPosition: {x: 0, y: .870000005, z: -.5}
+  m_LocalPosition: {x: 0, y: .5, z: -.310000002}
   m_LocalScale: {x: 1, y: .99999994, z: 1}
   m_Children: []
   m_Father: {fileID: 1961731740}
@@ -655,7 +657,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1961731739}
   m_LocalRotation: {x: .239117622, y: .369643867, z: -.0990457758, w: .892399132}
-  m_LocalPosition: {x: 3, y: 0, z: -2}
+  m_LocalPosition: {x: 6, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 465299473}
@@ -688,11 +690,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 441286, guid: 865a7f50dec10084f825c1a1db25dd62, type: 2}
       propertyPath: m_LocalPosition.y
-      value: .870000005
+      value: .5
       objectReference: {fileID: 0}
     - target: {fileID: 441286, guid: 865a7f50dec10084f825c1a1db25dd62, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -.5
+      value: -.310000002
       objectReference: {fileID: 0}
     - target: {fileID: 441286, guid: 865a7f50dec10084f825c1a1db25dd62, type: 2}
       propertyPath: m_LocalRotation.x
