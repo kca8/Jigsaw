@@ -1,13 +1,21 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 //code fragment appropriated from xlar9or via unity3d forums
 public class BasicIsometricMove : MonoBehaviour
 {
 	//modular scalar
 	public int velocity = 2;
-	
-	
+	private avoid a;
+	//ERROR HERE SHOULD PRINT OUR 5 HERE AT BEGINNING TO SHOW THAT WS HAS ACCESS TO THE WALLSCRIPT LOCAL VARIABLES
+	void Start()
+	{
+		WallScript ws;
+		ws = GetComponent<WallScript> ();
+		print (ws.x);
+	}
+
+
 	//called every frame
 	void Update()
 	{
@@ -24,6 +32,7 @@ public class BasicIsometricMove : MonoBehaviour
 		{
 			amount.x += speed;
 			amount.z += speed;
+
 		}
 		
 		if (Input.GetKey(KeyCode.S))
@@ -44,6 +53,9 @@ public class BasicIsometricMove : MonoBehaviour
 			amount.z += -speed;
 		}
 
+
+
 		transform.position = Vector3.Lerp(transform.position, transform.position + amount, 0.5f * Time.deltaTime);
+
 	}
 }
