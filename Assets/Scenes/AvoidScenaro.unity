@@ -239,7 +239,6 @@ GameObject:
   - 33: {fileID: 358049897}
   - 136: {fileID: 358049896}
   - 23: {fileID: 358049895}
-  - 114: {fileID: 358049899}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -302,23 +301,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &358049899
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 358049894}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c40669f372e57f41a15776f15706462, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sight: 6
-  velocity: 5
-  tDeviation: 2
-  newTDelay: 0
-  tagToChase: Enemy
-  stalker: {fileID: 358049894}
 --- !u!1 &465299468
 GameObject:
   m_ObjectHideFlags: 0
