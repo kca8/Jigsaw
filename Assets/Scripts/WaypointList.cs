@@ -10,6 +10,8 @@ public class WaypointList : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		
+		if(target != null)
+			print("Please press 'C' to set a goal for all child waypoints\n");
 	}
 	
 	// Update is called once per frame
@@ -20,6 +22,8 @@ public class WaypointList : MonoBehaviour {
 			foreach(Transform child in waypointParent) {
 				child.gameObject.GetComponent<Waypoint>().setGoal(target);
 			}
+			
+			print("Goal set for all waypoints!\n");
 		}
 	}
 }

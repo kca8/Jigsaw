@@ -6,14 +6,15 @@ public class BasicIsometricMove : MonoBehaviour
 {
 	//modular scalar
 	public int velocity = 2;
-	public WallScript ws;
-	public GameObject target;
+	//public WallScript ws;
+	//public GameObject target;
 	//private avoid a;
 	//ERROR HERE SHOULD PRINT OUR 5 HERE AT BEGINNING TO SHOW THAT WS HAS ACCESS TO THE WALLSCRIPT LOCAL VARIABLES
 	void Start()
 	{
-		ws = target.GetComponent<WallScript>();
-		print (ws.x);
+		//ws = target.GetComponent<WallScript>();
+		//print (ws.x);
+		print ("Use the 'WASD' keys to move the camera/player\n");
 	}
 
 
