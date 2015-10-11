@@ -14,11 +14,12 @@ public class Sentry : MonoBehaviour {
 	Transform waypoint_goto; //The current waypoint objective
 	List<Transform> waypointList = new List<Transform>(); //An array of waypoint_goto's
 	//public Waypoint thisWaypoint;
+	List<Transform> waypointPath = new List<Transform>(); //An array of waypoint_goto's
 	
 	public bool searchForObject = false;
 	
-	Vector3 origin;
-	
+	private Vector3 origin;
+	public string findThis;
 	
 	// Use this for initialization
 	void Start () {
@@ -31,6 +32,10 @@ public class Sentry : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		origin = transform.position;
+		foreach(Transform child in waypointParent) {
+			child.gameObject.GetComponent<Waypoint>().calcDistance();
+		}
 		
 		if(searchForObject == false)
 			if(currentWaypoint < this.waypointList.Count)
@@ -47,6 +52,35 @@ public class Sentry : MonoBehaviour {
 				waypoint_goto = waypointList[currentWaypoint];
 			}
 		
+		if (Input.GetKey(KeyCode.F))
+		{
+			findPath(origin, sight, findThis);
+			
+//			for(int i=0;i<waypointPath.Count;i++)
+//				print("Printing waypoint[" + i + "] " + waypointPath[i].GetComponent<Waypoint>().getDist());
+			
+			sortPathByDist();
+			
+//			for(int i=0;i<waypointPath.Count;i++)
+//				print ("Printing waypoint[" + i + "] " + waypointPath[i].GetComponent<Waypoint>().getDist());
+			
+			if(currentWaypoint < this.waypointPath.Count)
+			{
+				if(waypoint_goto == null)
+					waypoint_goto = waypointPath[currentWaypoint];
+				
+				followPath();
+			}
+			
+			else
+			{
+				currentWaypoint = 0;
+				waypoint_goto = waypointPath[currentWaypoint];
+			}
+			
+			waypointPath.Clear();
+		}
+		
 		if (Input.GetKey(KeyCode.H))
 		{
 			foreach (Transform child in waypointParent) {
@@ -60,7 +94,9 @@ public class Sentry : MonoBehaviour {
 				print(child.gameObject.GetComponent<Waypoint>().calcDistanceToWaypoint(this.transform, child.transform));
 			}
 		}
-			//findPath(origin, sight, "Waypoint");
+		
+		currentWaypoint = 0;
+		waypointPath.Clear();
 			
 	}
 	
@@ -85,27 +121,44 @@ public class Sentry : MonoBehaviour {
 		
 	}
 	
-//	public static Vector3 findPath(Vector3 center, float radius, string refTag) {
-//		center.y = 0f;
-//		Vector3 detectTotal = Vector3.zero;	
-//		Vector3 fleeVector = Vector3.zero;
-//		bool detected = false;
-//		
-//		Transform[] seenObjects = Physics.OverlapSphere(center, radius); 
-//		for (int i = 0; i < seenObjects.Length; i++) {
-//			if(seenObjects[i].gameObject.transform.tag == refTag){ 
-//				detected = true;
-//				Vector3 detectCurrent = center - seenObjects[i].gameObject.transform.position; 
-//				detectCurrent.y = 0f; 
-//				detectTotal = detectCurrent + detectTotal;
-//			}
-//		}
-//		if (detected) {
-//			fleeVector = detectTotal;
-//			return fleeVector.normalized;
-//		}
-//		else {
-//			return Vector3.zero; 
-//		}
-//	}
+	void findPath(Vector3 center, float radius, string refTag) {
+		center.y = 0f;
+		
+		Collider[] seenObjects = Physics.OverlapSphere(center, radius); 
+		for (int i = 0; i < seenObjects.Length; i++) {
+			if(seenObjects[i].gameObject.transform.tag == refTag){ 
+				print("Item detected!");
+				waypointPath.Add(seenObjects[i].gameObject.transform);
+			}
+		}
+		
+		print("Found objects = " + waypointPath.Count + "\n");
+	}
+	
+	
+	
+	void sortPathByDist() {
+		waypointPath.Sort(SortByDist);
+	}
+	
+	void followPath() {
+		
+		// rotate towards the target
+		transform.forward = Vector3.RotateTowards(transform.forward, waypointPath[currentWaypoint].position - transform.position, moveSpeed*Time.deltaTime, 0.0f);
+		
+		// move towards the target
+		transform.position = Vector3.MoveTowards(transform.position, waypointPath[currentWaypoint].position, moveSpeed*Time.deltaTime);
+		
+		if(transform.position == waypoint_goto.position)
+		{
+			currentWaypoint++;
+			waypoint_goto = waypointPath[currentWaypoint];
+		}
+		
+	}
+	
+	static int SortByDist(Transform p1, Transform p2)
+	{
+		return p1.GetComponent<Waypoint>().getDist().CompareTo(p2.GetComponent<Waypoint>().getDist());
+	}
 }

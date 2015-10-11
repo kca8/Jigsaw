@@ -21,6 +21,7 @@ public class WaypointList : MonoBehaviour {
 			
 			foreach(Transform child in waypointParent) {
 				child.gameObject.GetComponent<Waypoint>().setGoal(target);
+				child.gameObject.GetComponent<Waypoint>().calcDistance();
 			}
 			
 			print("Goal set for all waypoints!\n");

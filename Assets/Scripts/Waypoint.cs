@@ -5,6 +5,7 @@ public class Waypoint : MonoBehaviour {
 	
 	Transform goal = null;
 	float distance = 0.0f;
+	public float sight = 5.0f; //Sight radius of the agent
 	
 	// Use this for initialization
 	void Start () {
@@ -31,17 +32,18 @@ public class Waypoint : MonoBehaviour {
 		print("Distance from Goal: " + distance + "\n");
 	}
 	
-	private float calcDistance() {
-		float distance2 = Vector3.Distance(transform.position, goal.position);
+	public float calcDistance() {
+		distance = Vector3.Distance(transform.position, goal.position);
 		
-		return distance2;
+		return distance;
 	}
 	
 	public float calcDistance(Transform origin) {
 		print ("In calcDistance\n");
 		
-		float distance2 = Vector3.Distance(origin.position, goal.position);
-		return distance2;
+		distance = Vector3.Distance(origin.position, goal.position);
+		
+		return distance;
 		
 	}
 	
@@ -54,5 +56,9 @@ public class Waypoint : MonoBehaviour {
 	
 	public void setGoal(Transform goalObject) {
 		goal = goalObject;
+	}
+	
+	public float getDist() {
+		return distance;
 	}
 }
