@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Waypoint : MonoBehaviour {
 	
-	public Transform goal;
+	Transform goal = null;
 	float distance = 0.0f;
 	
 	// Use this for initialization
@@ -16,9 +16,15 @@ public class Waypoint : MonoBehaviour {
 	
 		if (Input.GetKey(KeyCode.G))
 		{
-			distance = calcDistance();
-			printDistance();
+			if(goal != null) {
+				distance = calcDistance();
+				printDistance();
+			}
+			
+			else
+				print("There is no goal\n");
 		}
+		
 	}
 	
 	public void printDistance() {
@@ -33,15 +39,20 @@ public class Waypoint : MonoBehaviour {
 	
 	public float calcDistance(Transform origin) {
 		print ("In calcDistance\n");
-		float distance2 = Vector3.Distance(origin.position, goal.position);
 		
+		float distance2 = Vector3.Distance(origin.position, goal.position);
 		return distance2;
+		
 	}
 	
 	public float calcDistanceToWaypoint(Transform origin, Transform waypoint) {
 		print ("In calcDistanceToWaypoint\n");
-		float distance2 = Vector3.Distance(origin.position, waypoint.position);
 		
+		float distance2 = Vector3.Distance(origin.position, waypoint.position);
 		return distance2;
+	}
+	
+	public void setGoal(Transform goalObject) {
+		goal = goalObject;
 	}
 }

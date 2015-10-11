@@ -13,7 +13,7 @@ public class Sentry : MonoBehaviour {
 	public Transform waypointParent; //The object containing a set of waypoint_goto's
 	Transform waypoint_goto; //The current waypoint objective
 	List<Transform> waypointList = new List<Transform>(); //An array of waypoint_goto's
-	public Waypoint thisWaypoint;
+	//public Waypoint thisWaypoint;
 	
 	public bool searchForObject = false;
 	
@@ -50,14 +50,14 @@ public class Sentry : MonoBehaviour {
 		if (Input.GetKey(KeyCode.H))
 		{
 			foreach (Transform child in waypointParent) {
-				print(thisWaypoint.calcDistance(child.transform));
+				print(child.gameObject.GetComponent<Waypoint>().calcDistance(child.transform));
 			}
 		}
 		
 		if (Input.GetKey(KeyCode.J))
 		{
 			foreach (Transform child in waypointParent) {
-				print(thisWaypoint.calcDistanceToWaypoint(this.transform, child.transform));
+				print(child.gameObject.GetComponent<Waypoint>().calcDistanceToWaypoint(this.transform, child.transform));
 			}
 		}
 			//findPath(origin, sight, "Waypoint");
