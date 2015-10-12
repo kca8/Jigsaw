@@ -17,14 +17,9 @@ public class WaypointList : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
-		if (Input.GetKey(KeyCode.C)) {
-			
-			foreach(Transform child in waypointParent) {
-				child.gameObject.GetComponent<Waypoint>().setGoal(target);
-				child.gameObject.GetComponent<Waypoint>().calcDistance();
-			}
-			
-			print("Goal set for all waypoints!\n");
+		foreach(Transform child in waypointParent) {
+			child.gameObject.GetComponent<Waypoint>().setGoal(target);
+			child.gameObject.GetComponent<Waypoint>().calcDistance();
 		}
 	}
 }
