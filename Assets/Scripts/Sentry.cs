@@ -10,6 +10,7 @@ public class Sentry : MonoBehaviour {
 	public float rotationSpeed = 2; //speed of turning
 
 	public int currentWaypoint = 0; //waypointList[] counter
+	public int currentPath = 0; //waypointList[] counter
 	public Transform waypointParent; //The object containing a set of waypoint_goto's
 	Transform waypoint_goto; //The current waypoint objective
 	List<Transform> waypointList = new List<Transform>(); //An array of waypoint_goto's
@@ -33,9 +34,6 @@ public class Sentry : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		origin = transform.position;
-		foreach(Transform child in waypointParent) {
-			child.gameObject.GetComponent<Waypoint>().calcDistance();
-		}
 		
 		if(searchForObject == false)
 			if(currentWaypoint < this.waypointList.Count)
@@ -56,26 +54,20 @@ public class Sentry : MonoBehaviour {
 		{
 			findPath(origin, sight, findThis);
 			
-//			for(int i=0;i<waypointPath.Count;i++)
-//				print("Printing waypoint[" + i + "] " + waypointPath[i].GetComponent<Waypoint>().getDist());
-			
 			sortPathByDist();
-			
-//			for(int i=0;i<waypointPath.Count;i++)
-//				print ("Printing waypoint[" + i + "] " + waypointPath[i].GetComponent<Waypoint>().getDist());
 			
 			if(currentWaypoint < this.waypointPath.Count)
 			{
 				if(waypoint_goto == null)
-					waypoint_goto = waypointPath[currentWaypoint];
+					waypoint_goto = waypointPath[currentPath];
 				
 				followPath();
 			}
 			
 			else
 			{
-				currentWaypoint = 0;
-				waypoint_goto = waypointPath[currentWaypoint];
+				currentPath = 0;
+				waypoint_goto = waypointPath[currentPath];
 			}
 			
 			waypointPath.Clear();
@@ -95,7 +87,7 @@ public class Sentry : MonoBehaviour {
 			}
 		}
 		
-		currentWaypoint = 0;
+		currentPath = 0;
 		waypointPath.Clear();
 			
 	}
@@ -144,15 +136,15 @@ public class Sentry : MonoBehaviour {
 	void followPath() {
 		
 		// rotate towards the target
-		transform.forward = Vector3.RotateTowards(transform.forward, waypointPath[currentWaypoint].position - transform.position, moveSpeed*Time.deltaTime, 0.0f);
+		transform.forward = Vector3.RotateTowards(transform.forward, waypointPath[currentPath].position - transform.position, moveSpeed*Time.deltaTime, 0.0f);
 		
 		// move towards the target
-		transform.position = Vector3.MoveTowards(transform.position, waypointPath[currentWaypoint].position, moveSpeed*Time.deltaTime);
+		transform.position = Vector3.MoveTowards(transform.position, waypointPath[currentPath].position, moveSpeed*Time.deltaTime);
 		
 		if(transform.position == waypoint_goto.position)
 		{
-			currentWaypoint++;
-			waypoint_goto = waypointPath[currentWaypoint];
+			currentPath++;
+			waypoint_goto = waypointPath[currentPath];
 		}
 		
 	}

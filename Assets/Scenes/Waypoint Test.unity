@@ -907,6 +907,7 @@ MonoBehaviour:
   moveSpeed: 6
   rotationSpeed: 2
   currentWaypoint: 0
+  currentPath: 0
   waypointParent: {fileID: 527700799}
   searchForObject: 1
   findThis: Waypoint
