@@ -1,15 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
 
 public class avoid : MonoBehaviour {
 
 	private Vector3 origin;
 	private float customT = 0.5f;
+
 	public float sight = 5.0f;
 	public float velocity = 1.0f;
 	public float tDeviation = 0;
 	public float newTDelay = 0;
-	public string tagToAvoid;
+	public string[] tagsToAvoid;
 	public GameObject introvert;
 
 	void Start() {
@@ -19,7 +21,7 @@ public class avoid : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		origin = transform.position;
-		Vector3 away = observeForFlee(origin, sight, tagToAvoid);
+		Vector3 away = observeForFlee(origin, sight, tagsToAvoid);
 		travel(introvert, away, velocity, customT);
 	}
 
@@ -50,19 +52,19 @@ public class avoid : MonoBehaviour {
 	///@author Keegan Anderson
 	///<summary>
 	///Looks at all objects within a sphere of a given radius, centered on object
-	///Considers all objects designated with specified reference Name
+	///Considers all objects designated with specified reference tags
 	///Calculates and returns perfect vector to flee from specified objects
 	///If no objects exist to be considered, it returns a zero vector.
 	///</summary>
 	/// 
 	///<param name="center">>> position of this object</param>
 	///<param name="radius">>> size of sphere </param>
-	///<param name="refTag">>> string label of objects to avoid</param>
+	///<param name="refTags">>> string array of labels of objects to avoid</param>
 	///<returns> Vector3 representing best direction of travel to avoid targets
 	///or a vector of 0,0,0 if detecting none</returns>
 	///
 	// -------------------------------------------------------------------------
-	public static Vector3 observeForFlee(Vector3 center, float radius, string refTag) {
+	public static Vector3 observeForFlee(Vector3 center, float radius, string[] refTags) {
 		center.y = 0f;
 		Vector3 detectTotal = Vector3.zero;	
 		Vector3 fleeVector = Vector3.zero;
@@ -70,7 +72,7 @@ public class avoid : MonoBehaviour {
 
 		Collider[] seenObjects = Physics.OverlapSphere(center, radius); 
 		for (int i = 0; i < seenObjects.Length; i++) {
-			if(seenObjects[i].gameObject.transform.tag == refTag){ 
+			if(refTags.Contains(seenObjects[i].gameObject.transform.tag)){ 
 				detected = true;
 				Vector3 detectCurrent = center - seenObjects[i].gameObject.transform.position; 
 				detectCurrent.y = 0f; 

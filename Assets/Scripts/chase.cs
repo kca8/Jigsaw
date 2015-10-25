@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
 
 public class chase : MonoBehaviour {
 	private Vector3 origin;
@@ -8,7 +9,7 @@ public class chase : MonoBehaviour {
 	public float velocity = 1.0f;
 	public float tDeviation = 0;
 	public float newTDelay = 0;
-	public string tagToChase;
+	public string[] tagsToChase;
 	public GameObject stalker;
 	
 	void Start() {
@@ -18,7 +19,7 @@ public class chase : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		origin = transform.position;
-		Vector3 away = observeForChase(origin, sight, tagToChase);
+		Vector3 away = observeForChase(origin, sight, tagsToChase);
 		travel(stalker, away, velocity, customT);
 	}
 	
@@ -47,41 +48,46 @@ public class chase : MonoBehaviour {
 	///@author Keegan Anderson
 	///<summary>
 	///Looks at all objects within a sphere of a given radius, centered on object
-	///Considers all objects designated with specified reference Name
+	///Considers all objects designated with specified reference tags
 	///Calculates and returns perfect vector to chase nearest object of specified type
 	///If no objects exist to be considered, it returns a zero vector.
 	///</summary>
 	/// 
 	///<param name="center">>> position of this object</param>
 	///<param name="radius">>> size of sphere </param>
-	///<param name="refTag">>> string label of objects to chase</param>
+	///<param name="refTag">>> string array of labels of objects to chase</param>
 	///<returns> Vector3 representing best direction of travel to chase nearest
 	///target or a vector of 0,0,0 if detecting none</returns>
 	///
 	// -------------------------------------------------------------------------
-	public static Vector3 observeForChase(Vector3 center, float radius, string refTag) {
+	public static Vector3 observeForChase(Vector3 center, float radius, string[] refTags) {
 		center.y = 0f;
-		Vector3 detectTotal = Vector3.zero;	
-		Vector3 fleeVector = Vector3.zero;
+		Vector3 detectBest = Vector3.zero;	
+		float distance = Mathf.Infinity;
+		Vector3 chaseVector = Vector3.zero;
 		bool detected = false;
 		
 		Collider[] seenObjects = Physics.OverlapSphere(center, radius); 
 		for (int i = 0; i < seenObjects.Length; i++) {
-			if(seenObjects[i].gameObject.transform.tag == refTag){ 
+			if(refTags.Contains(seenObjects[i].gameObject.transform.tag)){ 
 				detected = true;
 				Vector3 detectCurrent = seenObjects[i].gameObject.transform.position - center; 
 				detectCurrent.y = 0f; 
-				detectTotal = detectCurrent + detectTotal;
+				if(distance > detectCurrent.sqrMagnitude){
+					detectBest = detectCurrent;
+					distance = detectCurrent.sqrMagnitude;
+				}
 			}
 		}
 		if (detected) {
-			fleeVector = detectTotal;
-			return fleeVector.normalized;
+			chaseVector = detectBest;
+			return chaseVector.normalized;
 		}
 		else {
 			return Vector3.zero; 
 		}
 	}
+
 	// -------------------------------------------------------------------------
 	///@author Keegan Anderson
 	///<summary>
