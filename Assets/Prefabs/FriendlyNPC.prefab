@@ -11,6 +11,7 @@ GameObject:
   - 33: {fileID: 3334514}
   - 65: {fileID: 6534514}
   - 23: {fileID: 2334514}
+  - 114: {fileID: 11409346}
   m_Layer: 0
   m_Name: FriendlyNPC
   m_TagString: Friendly
@@ -69,6 +70,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &11409346
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 134514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db28bb7a9a36bbf4fbbaae9b9e538540, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 100
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
