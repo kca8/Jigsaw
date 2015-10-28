@@ -22,4 +22,8 @@ public class Health : MonoBehaviour {
 	public void AlterHealth(float change){
 		currentHealth += change;
 	}
+
+	public float getHealthValue(){
+		return currentHealth;
+	}
 }

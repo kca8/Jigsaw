@@ -13,6 +13,7 @@ public class Ranged : MonoBehaviour {
 	public float rateOfFire = 0.5f;
 	public string[] tagsToTarget;
 	public Rigidbody projectile;
+	public GameObject ai;
 
 
 	// Use this for initialization
@@ -47,7 +48,19 @@ public class Ranged : MonoBehaviour {
 	///target or a vector of 0,0,0 if detecting none</returns>
 	///
 	// -------------------------------------------------------------------------
-	public static Vector3 observeForTarget(Vector3 center, float radius, string[] refTags) {
+
+	public void GiveInfo(Collider seenObjects){
+		AIDirector ai = gameObject.GetComponent<AIDirector>();
+		if (seenObjects.gameObject.transform.CompareTag ("Player")) {
+			Health targetHealth = seenObjects.gameObject.GetComponent<Health>();
+			float health = targetHealth.getHealthValue ();
+			ai.setPlayerHealth(health);
+			print ("player spotted");
+		}
+
+	}
+
+	public Vector3 observeForTarget(Vector3 center, float radius, string[] refTags) {
 		center.y = 0f;
 		Vector3 detectBest = Vector3.zero;	
 		float distance = Mathf.Infinity;
@@ -65,6 +78,10 @@ public class Ranged : MonoBehaviour {
 					distance = detectCurrent.sqrMagnitude;
 				}
 			}
+
+			Collider o = seenObjects[i];
+			GiveInfo(o);
+
 		}
 		if (detected) {
 			targetVector = detectBest;
