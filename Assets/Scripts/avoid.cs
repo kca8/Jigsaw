@@ -14,6 +14,7 @@ public class avoid : MonoBehaviour {
 
 	void Start() {
 		InvokeRepeating("newT", 0, newTDelay);
+
 	}
 
 	// Update is called once per frame

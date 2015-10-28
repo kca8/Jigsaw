@@ -6,14 +6,14 @@ public class BasicIsometricMove : MonoBehaviour
 {
 	//modular scalar
 	public int velocity = 2;
-	public WallScript ws;
+	public WallScript ws; 
 	public GameObject target;
-	//private avoid a;
-	//ERROR HERE SHOULD PRINT OUR 5 HERE AT BEGINNING TO SHOW THAT WS HAS ACCESS TO THE WALLSCRIPT LOCAL VARIABLES
+	private GameObject player;
+
 	void Start()
 	{
 		ws = target.GetComponent<WallScript>();
-		print (ws.x);
+		player = GameObject.Find ("Player");
 	}
 
 
@@ -31,8 +31,23 @@ public class BasicIsometricMove : MonoBehaviour
 		
 		if (Input.GetKey(KeyCode.W))
 		{
+			foreach(GameObject wall in ws.goList)
+			{
+				if(wall.transform.localPosition.x == player.transform.position.x)
+				{
+					print (wall.renderer.bounds.Contains(player.transform.position));
+					print ("worked");
+				}
+				else{
+
+			
+					//print (player.transform.position.x);
+				}
+				
+			}
 			amount.x += speed;
 			amount.z += speed;
+			
 
 		}
 		
