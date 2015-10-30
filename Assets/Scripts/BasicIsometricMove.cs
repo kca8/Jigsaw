@@ -35,20 +35,7 @@ public class BasicIsometricMove : MonoBehaviour
 		
 		if (Input.GetKey(KeyCode.W))
 		{
-			foreach(GameObject wall in ws.goList)
-			{
-				if(wall.transform.localPosition.x == player.transform.position.x)
-				{
-					print (wall.renderer.bounds.Contains(player.transform.position));
-					print ("worked");
-				}
-				else{
-
 			
-					//print (player.transform.position.x);
-				}
-				
-			}
 			amount.x += speed;
 			amount.z += speed;
 			
