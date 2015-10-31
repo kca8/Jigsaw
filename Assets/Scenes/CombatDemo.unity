@@ -113,6 +113,7 @@ MonoBehaviour:
   tagsToTarget:
   - Enemy
   projectile: {fileID: 5432808, guid: c8f953da13a473849b336b4ea3987a25, type: 2}
+  ai: {fileID: 0}
 --- !u!23 &311857926
 Renderer:
   m_ObjectHideFlags: 0
@@ -351,6 +352,7 @@ MonoBehaviour:
   - Player
   - Friendly
   projectile: {fileID: 5408902, guid: 2ac4c3d00af3c964682228219ed3b9c7, type: 2}
+  ai: {fileID: 0}
 --- !u!114 &1318883001
 MonoBehaviour:
   m_ObjectHideFlags: 0

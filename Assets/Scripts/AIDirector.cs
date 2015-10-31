@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class AIDirector : MonoBehaviour {
 
@@ -27,5 +28,14 @@ public class AIDirector : MonoBehaviour {
 
 	public void getNPCType(int type){
 		type = NPC_Type;
+	}
+	
+	public void setTargetForNPCs(string huntThisItem){
+		var objects = GameObject.FindGameObjectsWithTag("Hunter");
+		//List<Hunt> hunters = new List<Hunt>();
+		
+		foreach(var npc in objects){
+			npc.gameObject.GetComponent<Hunt>().addHuntTarget(huntThisItem);
+		}
 	}
 }
