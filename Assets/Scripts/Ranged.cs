@@ -12,7 +12,9 @@ public class Ranged : MonoBehaviour {
 	public float rotationSpeed = 4f;
 	public float rateOfFire = 0.5f;
 	public string[] tagsToTarget;
+	string nameToAdd = "Player";
 	public Rigidbody projectile;
+	public AIDirector AI;
 	public GameObject ai;
 
 
@@ -50,14 +52,17 @@ public class Ranged : MonoBehaviour {
 	// -------------------------------------------------------------------------
 
 	public void GiveInfo(Collider seenObjects){
-		AIDirector ai = gameObject.GetComponent<AIDirector>();
-		if (seenObjects.gameObject.transform.CompareTag ("Player")) {
-			Health targetHealth = seenObjects.gameObject.GetComponent<Health>();
-			float health = targetHealth.getHealthValue ();
-			ai.setPlayerHealth(health);
-			print ("player spotted");
+	//	AI = (AIDirector)ai.GetComponent (typeof(AIDirector));
+		// if the array seenObjects has a player in it
+		foreach (Collider value in seenObjects) {
+			if (value.name == nameToAdd) 
+			{
+				//	Health targetHealth = seenObjects.gameObject.GetComponent<Health>();
+				//	float health = targetHealth.getHealthValue ();
+				//	AI.setPlayerHealth(health);
+				print ("player spotted");
+			}
 		}
-
 	}
 
 	public Vector3 observeForTarget(Vector3 center, float radius, string[] refTags) {

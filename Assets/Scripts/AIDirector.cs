@@ -26,6 +26,6 @@ public class AIDirector : MonoBehaviour {
 	}
 
 	public void getNPCType(int type){
-		type = NPC_Type;
+		NPC_Type = type;
 	}
 }
