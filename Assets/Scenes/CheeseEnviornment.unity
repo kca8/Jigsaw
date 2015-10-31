@@ -330,6 +330,7 @@ GameObject:
   - 33: {fileID: 120735056}
   - 136: {fileID: 120735055}
   - 23: {fileID: 120735054}
+  - 54: {fileID: 120735058}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -392,6 +393,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 985543284}
   m_RootOrder: 1
+--- !u!54 &120735058
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 5483150, guid: 865a7f50dec10084f825c1a1db25dd62,
+    type: 2}
+  m_PrefabInternal: {fileID: 473706429}
+  m_GameObject: {fileID: 120735053}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &126975904
 GameObject:
   m_ObjectHideFlags: 0
@@ -1581,7 +1598,7 @@ Light:
   m_Type: 2
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 8
-  m_Range: 50
+  m_Range: 100
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -1836,6 +1853,10 @@ Prefab:
     - target: {fileID: 135958, guid: a817e3b6ef81efb499ca8ff3732303e9, type: 2}
       propertyPath: m_Name
       value: Wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 435958, guid: a817e3b6ef81efb499ca8ff3732303e9, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a817e3b6ef81efb499ca8ff3732303e9, type: 2}
@@ -3305,6 +3326,7 @@ GameObject:
   - 33: {fileID: 1612956253}
   - 65: {fileID: 1612956252}
   - 23: {fileID: 1612956251}
+  - 114: {fileID: 1612956255}
   - 114: {fileID: 1612956250}
   m_Layer: 0
   m_Name: EnemyNPC
@@ -3387,6 +3409,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
+--- !u!114 &1612956255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11419154, guid: 085e750a19a4abd4d9f9e95bed41a1cf,
+    type: 2}
+  m_PrefabInternal: {fileID: 1148178308}
+  m_GameObject: {fileID: 1612956249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db28bb7a9a36bbf4fbbaae9b9e538540, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 100
 --- !u!1 &1622636144
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,7 +13,7 @@ public class Waypoint : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update () { 
 	
 		if (Input.GetKey(KeyCode.G))
 		{

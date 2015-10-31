@@ -110,10 +110,10 @@ MonoBehaviour:
   range: 15
   rotationSpeed: 1
   rateOfFire: 1
+  directed: 0
   tagsToTarget:
   - Enemy
   projectile: {fileID: 5432808, guid: c8f953da13a473849b336b4ea3987a25, type: 2}
-  ai: {fileID: 0}
 --- !u!23 &311857926
 Renderer:
   m_ObjectHideFlags: 0
@@ -221,8 +221,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocity: 5
-  ws: {fileID: 0}
-  target: {fileID: 0}
 --- !u!1 &938475586
 GameObject:
   m_ObjectHideFlags: 0
@@ -348,11 +346,11 @@ MonoBehaviour:
   range: 15
   rotationSpeed: 4
   rateOfFire: 1
+  directed: 0
   tagsToTarget:
   - Player
   - Friendly
   projectile: {fileID: 5408902, guid: 2ac4c3d00af3c964682228219ed3b9c7, type: 2}
-  ai: {fileID: 0}
 --- !u!114 &1318883001
 MonoBehaviour:
   m_ObjectHideFlags: 0

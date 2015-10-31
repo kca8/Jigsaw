@@ -6,29 +6,42 @@ public class Ranged : MonoBehaviour {
 
 	private Vector3 origin;
 	private float timeOfLastShot = 0f;
+	private AIDirector ai;
 	
 	public float sight = 15f;
 	public float range = 15f;
 	public float rotationSpeed = 4f;
 	public float rateOfFire = 0.5f;
+	public bool directed = false;
 	public string[] tagsToTarget;
 	public Rigidbody projectile;
-	public GameObject ai;
 
 
 	// Use this for initialization
 	void Start () {
+		ai = GameObject.FindObjectOfType<AIDirector>() as AIDirector;
+
 		origin = transform.position;
 		if (range > sight) range = sight;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-
 		origin = transform.position;
 		Vector3 directionOfTarget = observeForTarget(origin, sight, tagsToTarget);
 		fire(directionOfTarget);
 	
+	}
+
+	public void GiveInfo(Collider seenObject){
+		if(directed){
+			if (seenObject.gameObject.transform.CompareTag ("Player")) {
+				Health targetHealth = seenObject.gameObject.GetComponent<Health>();
+				float health = targetHealth.getHealthValue ();
+				ai.setPlayerHealth(health);
+				print ("player spotted");
+			}
+		}
 	}
 
 	// -------------------------------------------------------------------------
@@ -39,6 +52,8 @@ public class Ranged : MonoBehaviour {
 	///Considers all objects designated with specified reference tags
 	///Calculates and returns perfect vector to target nearest object of specified type
 	///If no objects exist to be considered, it returns a zero vector.
+	/// 
+	///GivesInfo of all objects encountered to AIDirector
 	///</summary>
 	/// 
 	///<param name="center">>> position of this object</param>
@@ -48,18 +63,6 @@ public class Ranged : MonoBehaviour {
 	///target or a vector of 0,0,0 if detecting none</returns>
 	///
 	// -------------------------------------------------------------------------
-
-	public void GiveInfo(Collider seenObjects){
-		AIDirector ai = gameObject.GetComponent<AIDirector>();
-		if (seenObjects.gameObject.transform.CompareTag ("Player")) {
-			Health targetHealth = seenObjects.gameObject.GetComponent<Health>();
-			float health = targetHealth.getHealthValue ();
-			ai.setPlayerHealth(health);
-			print ("player spotted");
-		}
-
-	}
-
 	public Vector3 observeForTarget(Vector3 center, float radius, string[] refTags) {
 		center.y = 0f;
 		Vector3 detectBest = Vector3.zero;	
