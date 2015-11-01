@@ -10,8 +10,8 @@ public class AIDirector : MonoBehaviour {
 	public float calc;
 	public float calc_ans;
 	public float ans;
-	public boolean fight;
-	public boolean run;
+	public bool fight;
+	public bool run;
 
 	// Use this for initialization
 	void Start () {
