@@ -44,29 +44,11 @@ public class Hunt : MonoBehaviour {
 			float chosenAngle = Mathf.LerpAngle(-45, 45, randT (tDev));
 			path = Quaternion.AngleAxis (chosenAngle, Vector3.up) * path;
 			
+			//traveler.transform.forward = Vector3.RotateTowards(traveler.transform.forward, path, speed * Time.deltaTime, 0.0f);
 			traveler.transform.Translate(path * speed * Time.deltaTime);
 		}
 	}
 	
-	// -------------------------------------------------------------------------
-	///@author Keegan Anderson; Modified for hunting by James Rossel
-	///<summary>
-	///Looks at all objects within a sphere of a given radius, centered on object
-	///Considers all objects designated with specified reference tags
-	///Calculates and returns perfect vector to chase nearest object of specified type
-	///If no objects exist to be considered, it returns a zero vector.
-	///
-	///Should an object be not "tagged for Hunting", the NPC will send the new object's tag to
-	///the AI Director and await orders on whether or not the NPC should pursue the target.
-	///</summary>
-	/// 
-	///<param name="center">>> position of this object</param>
-	///<param name="radius">>> size of sphere </param>
-	///<param name="refTag">>> string array of labels of objects to chase</param>
-	///<returns> Vector3 representing best direction of travel to chase nearest
-	///target or a vector of 0,0,0 if detecting none</returns>
-	///
-	// -------------------------------------------------------------------------
 	public static Vector3 observeForHunt(Vector3 center, float radius, List<string> refTags) {
 		center.y = 0f;
 		Vector3 detectBest = Vector3.zero;	
@@ -101,19 +83,10 @@ public class Hunt : MonoBehaviour {
 		}
 	}
 	
-	// -------------------------------------------------------------------------
-	///@author James Rossel
-	///<summary>
-	///The NPC tell sends newfound information to the AI Director and awaits for orders.
-	///</summary>
-	/// 
-	///<param name="newTarget">>> a string describing a new object</param>
-	// -------------------------------------------------------------------------
 	static void tellDirector(string newTarget){
 		print ("In TellDirector");
 		director.gameObject.GetComponent<AIDirector>().setTargetForNPCs(newTarget);
 	}
-	
 	// -------------------------------------------------------------------------
 	///@author Keegan Anderson
 	///<summary>
