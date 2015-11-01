@@ -5,13 +5,8 @@ using System.Collections.Generic;
 public class AIDirector : MonoBehaviour {
 
 	public float player_health;
-<<<<<<< HEAD
-	public int NPC_health;
-	public int NPC_Type;
-=======
 	public float NPC_health;
 	public string NPC_Type;
->>>>>>> e9192bf83e6741d292b1dda26ac6f25d0fc8f0f9
 
 	// Use this for initialization
 	void Start () {
@@ -23,8 +18,6 @@ public class AIDirector : MonoBehaviour {
 	
 	}
 
-<<<<<<< HEAD
-=======
 	// -------------------------------------------------------------------------
 	///@Keegan, Kirby, James
 	///@author Kirby Gagne
@@ -36,24 +29,11 @@ public class AIDirector : MonoBehaviour {
 	///<param name="health">>> the health of the player
 	///
 	// -------------------------------------------------------------------------
->>>>>>> e9192bf83e6741d292b1dda26ac6f25d0fc8f0f9
+
 	public void setPlayerHealth(float health){
 		player_health = health;
 	}
 
-<<<<<<< HEAD
-	public void getNPCHealth(int health){
-		NPC_health = health;
-	}
-
-	public void getNPCType(int type){
-		type = NPC_Type;
-	}
-	
-	public void setTargetForNPCs(string huntThisItem){
-		var objects = GameObject.FindGameObjectsWithTag("Hunter");
-		//List<Hunt> hunters = new List<Hunt>();
-=======
 	// -------------------------------------------------------------------------
 	///@Keegan, Kirby, James
 	///@author Kirby Gagne
@@ -98,7 +78,6 @@ public class AIDirector : MonoBehaviour {
 	// -------------------------------------------------------------------------
 	public void setTargetForNPCs(string huntThisItem){
 		var objects = GameObject.FindGameObjectsWithTag("Hunter");
->>>>>>> e9192bf83e6741d292b1dda26ac6f25d0fc8f0f9
 		
 		foreach(var npc in objects){
 			npc.gameObject.GetComponent<Hunt>().addHuntTarget(huntThisItem);
