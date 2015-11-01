@@ -7,11 +7,11 @@ public class AIDirector : MonoBehaviour {
 	public float player_health;
 	public float NPC_health;
 	public string NPC_Type;
-	public float calc;
-	public float calc_ans;
-	public float ans;
-	public boolean fight;
-	public boolean run;
+	public int calc;
+	public int calc_ans;
+	public int ans;
+	public bool fight;
+	public bool run;
 
 	// Use this for initialization
 	void Start () {
@@ -35,9 +35,12 @@ public class AIDirector : MonoBehaviour {
 	///
 	// -------------------------------------------------------------------------
 	public void CalculateStrat(){
+		print ("inCalculate");
 		fight = false;
 		run = false;
-		calc = player_health + NPC_health;
+		calc = (int)player_health + (int)NPC_health;
+		print ("calc ans is\n");
+		print (calc_ans);
 		calc_ans = Random.Range (1, calc);
 		while (calc_ans > 100) {
 			ans = calc_ans - 100;
@@ -47,9 +50,13 @@ public class AIDirector : MonoBehaviour {
 		}
 		if (calc_ans >= 50) {
 			print ("over 50 fight should be true\n");
+			print ("calc ans is\n");
+			print (calc_ans);
 			fight = true;
 		} else {
 			print ("under 50 run should be true\n");
+			print ("calc ans is\n");
+			print (calc_ans);
 			run = true;
 		}
 	}
@@ -115,6 +122,7 @@ public class AIDirector : MonoBehaviour {
 	///
 	// -------------------------------------------------------------------------
 	public void setTargetForNPCs(string huntThisItem){
+		print ("inSetTarget");
 		CalculateStrat ();
 		if (fight == true) {
 			var objects = GameObject.FindGameObjectsWithTag("Hunter");
