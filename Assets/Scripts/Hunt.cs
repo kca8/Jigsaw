@@ -31,6 +31,18 @@ public class Hunt : MonoBehaviour {
 	void newT() {
 		customT = randT (tDeviation);
 	}
+
+	public static void GiveInfo(Collider seenObject, bool detected){
+		if(detected){
+			if (seenObject.gameObject.transform.CompareTag ("Player")) {
+				Health targetHealth = seenObject.gameObject.GetComponent<Health>();
+				float health = targetHealth.getHealthValue ();
+				director.gameObject.GetComponent<AIDirector>().setPlayerHealth(health);
+				director.gameObject.GetComponent<AIDirector>().CalculateStrat ();
+				print ("player spotted");
+			}
+		}
+	}
 	
 	public static void travel(GameObject traveler, Vector3 path, float speed, float tDev)
 	{
@@ -60,6 +72,7 @@ public class Hunt : MonoBehaviour {
 		for (int i = 0; i < seenObjects.Length; i++) {
 			if(refTags.Contains(seenObjects[i].gameObject.transform.tag)){
 				detected = true;
+				GiveInfo(seenObjects[i],true);
 				Vector3 detectCurrent = seenObjects[i].gameObject.transform.position - center; 
 				detectCurrent.y = 0f; 
 				if(distance > detectCurrent.sqrMagnitude){
@@ -70,6 +83,7 @@ public class Hunt : MonoBehaviour {
 			
 			else if (seenObjects[i].gameObject.transform.tag != "Untagged" && seenObjects[i].gameObject.transform.tag != "Hunter"){
 				detected = true;
+				GiveInfo(seenObjects[i],true);
 				//string newTarget = seenObjects[i].gameObject.transform.tag;
 				tellDirector(seenObjects[i].gameObject.transform.tag); 
 			}
@@ -86,6 +100,7 @@ public class Hunt : MonoBehaviour {
 	static void tellDirector(string newTarget){
 		print ("In TellDirector");
 		director.gameObject.GetComponent<AIDirector>().setTargetForNPCs(newTarget);
+
 	}
 	// -------------------------------------------------------------------------
 	///@author Keegan Anderson
