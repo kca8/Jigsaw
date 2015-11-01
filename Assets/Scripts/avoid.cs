@@ -5,6 +5,7 @@ using System.Linq;
 public class avoid : MonoBehaviour {
 
 	private Vector3 origin;
+	private GameObject myself;
 	private float customT = 0.5f;
 
 	public float sight = 5.0f;
@@ -12,24 +13,51 @@ public class avoid : MonoBehaviour {
 	public float tDeviation = 0;
 	public float newTDelay = 0;
 	public string[] tagsToAvoid;
-	public GameObject introvert;
 
+
+	// Use this for initialization
 	void Start() {
-		InvokeRepeating("newT", 0, newTDelay);
-
+		InvokeRepeating("newT", 0, newTDelay);						//initializes a random 't' value regenerator
+		myself = gameObject;
 	}
 
 	// Update is called once per frame
 	void Update () {
-		origin = transform.position;
-		Vector3 away = observeForFlee(origin, sight, tagsToAvoid);
-		travel(introvert, away, velocity, customT);
+		origin = transform.position;								//sets origin as current position
+		Vector3 away = observeForFlee(origin, sight, tagsToAvoid);	//gets flee vector 
+		travel(myself, away, velocity, customT);					//travels in best direction
 	}
 
+	// -------------------------------------------------------------------------
+	///@Keegan, Kirby, James
+	///@author Keegan Anderson
+	///<summary>
+	///Private utility function to calculate new "t" value randomly; used in 
+	///conjunction with InvokeRepeating.
+	///</summary>
+	///
+	// -------------------------------------------------------------------------
 	void newT() {
 		customT = randT (tDeviation);
 	}
 
+	// -------------------------------------------------------------------------
+	///@Keegan, Kirby, James
+	///@author Keegan Anderson
+	///<summary>
+	///Moves a gameObject "traveler" along a specified "path" vector at a specific
+	///"speed" and linearly interpolates its direction according to an already 
+	///calculated "t" value
+	///If sentinel value vector is passed for "path", no traveling will occur.
+	///Color of object changes on context in current version.
+	///</summary>
+	/// 
+	///<param name="traveler">>> the game object to be moved</param>
+	///<param name="path">>> optimal, normalized vector3</param>
+	///<param name="speed">>> float determining speed of travel</param>
+	///<param name="t">>> float value for random direction adjustment</param> 
+	///
+	// -------------------------------------------------------------------------
 	public static void travel(GameObject traveler, Vector3 path, float speed, float t)
 	{
 		//Did not observe anything to respond to
@@ -42,8 +70,6 @@ public class avoid : MonoBehaviour {
 			float chosenAngle = Mathf.LerpAngle(-45, 45, t);
 			path = Quaternion.AngleAxis (chosenAngle, Vector3.up) * path;
 
-			//rotate currently doesn't work - causes toMove to corkscrew towards nearest tagged object to avoid
-			//traveler.transform.forward = Vector3.RotateTowards(traveler.transform.forward, path, speed * Time.deltaTime, 0.0f);
 			traveler.transform.Translate(path * speed * Time.deltaTime);
 		}
 	}

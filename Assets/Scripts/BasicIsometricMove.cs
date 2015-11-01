@@ -6,20 +6,12 @@ public class BasicIsometricMove : MonoBehaviour
 {
 	//modular scalar
 	public int velocity = 2;
-	public WallScript ws; 
-	public GameObject target;
-	private GameObject player;
 
 	void Start()
 	{
-		ws = target.GetComponent<WallScript>();
-		player = GameObject.Find ("Player");
 		print ("Use the 'WASD' keys to move the camera/player\n");
 		
 	}
-	//public WallScript ws;
-	//public GameObject target;
-	//private avoid a;
 
 	//called every frame
 	void Update()
@@ -33,34 +25,25 @@ public class BasicIsometricMove : MonoBehaviour
 		//if sprinting, double speed
 		if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) speed *= 2;
 		
-		if (Input.GetKey(KeyCode.W))
-		{
-			
+		if (Input.GetKey(KeyCode.W)){
 			amount.x += speed;
 			amount.z += speed;
-			
-
 		}
 		
-		if (Input.GetKey(KeyCode.S))
-		{
+		if (Input.GetKey(KeyCode.S)){
 			amount.x += -speed;
 			amount.z += -speed;
 		}
 
-		if (Input.GetKey(KeyCode.A))
-		{
+		if (Input.GetKey(KeyCode.A)){
 			amount.x += -speed;
 			amount.z += speed;
 		}
 		
-		if (Input.GetKey(KeyCode.D))
-		{
+		if (Input.GetKey(KeyCode.D)){
 			amount.x += speed;
 			amount.z += -speed;
 		}
-
-
 
 		transform.position = Vector3.Lerp(transform.position, transform.position + amount, 0.5f * Time.deltaTime);
 
