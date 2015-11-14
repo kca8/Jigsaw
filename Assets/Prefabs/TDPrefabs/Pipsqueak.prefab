@@ -70,8 +70,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db28bb7a9a36bbf4fbbaae9b9e538540, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 80
-  currentHealth: 80
+  maxHealth: 100
+  currentHealth: 100
 --- !u!114 &11466492
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -85,8 +85,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   sight: 5
-  moveSpeed: 6
-  rotationSpeed: 5
+  moveSpeed: 4.5
+  rotationSpeed: 4.5
   currentWaypoint: 0
   currentPath: 0
   waypointParent: {fileID: 0}
