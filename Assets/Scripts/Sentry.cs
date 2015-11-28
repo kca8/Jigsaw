@@ -153,4 +153,14 @@ public class Sentry : MonoBehaviour {
 	{
 		return p1.GetComponent<Waypoint>().getDist().CompareTo(p2.GetComponent<Waypoint>().getDist());
 	}
+	
+	public void addNewWaypointParent(Transform newParent){
+		waypointParent = newParent;
+		
+		waypointList.Clear();
+		
+		foreach (Transform child in waypointParent){
+			waypointList.Add(child.transform);
+		}
+	}
 }

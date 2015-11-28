@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class AIDirector : MonoBehaviour {
 
@@ -12,10 +13,14 @@ public class AIDirector : MonoBehaviour {
 	public int ans;
 	public bool fight;
 	public bool run;
+	
+	public GameObject spawn;
+	public Transform Tank;
+	private Object instObj;
 
 	// Use this for initialization
 	void Start () {
-	
+		InvokeRepeating("spawnAgent", 0, 5);
 	}
 	
 	// Update is called once per frame
@@ -132,6 +137,23 @@ public class AIDirector : MonoBehaviour {
 			}
 
 		}
-
+	}
+	
+	public void setWaypointsForNPCs(){
+		print ("inSetWaypoint");
+		var objects = GameObject.FindGameObjectsWithTag("Enemy");
+		Transform waypointList = GameObject.FindGameObjectWithTag("WaypointParent").transform;
+			
+		foreach(var npc in objects){
+			npc.gameObject.GetComponent<Sentry>().addNewWaypointParent(waypointList);
+		}
+	}
+	
+	private void spawnAgent(){
+		Vector3 spawnPos = GameObject.FindGameObjectWithTag("Spawn").transform.position;
+		Quaternion rotate = GameObject.FindGameObjectWithTag("Spawn").transform.rotation;
+		
+		instObj = Instantiate(Tank, spawnPos, rotate);
+		setWaypointsForNPCs();
 	}
 }
