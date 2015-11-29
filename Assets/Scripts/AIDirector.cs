@@ -16,7 +16,10 @@ public class AIDirector : MonoBehaviour {
 	
 	public GameObject spawn;
 	public Transform Tank;
+	public Transform Bruiser;
+	public Transform Pipsqueak;
 	private Object instObj;
+	public List<Object> SpawnList = new List<Object>();
 
 	// Use this for initialization
 	void Start () {
@@ -148,12 +151,21 @@ public class AIDirector : MonoBehaviour {
 			npc.gameObject.GetComponent<Sentry>().addNewWaypointParent(waypointList);
 		}
 	}
-	
+
 	private void spawnAgent(){
 		Vector3 spawnPos = GameObject.FindGameObjectWithTag("Spawn").transform.position;
 		Quaternion rotate = GameObject.FindGameObjectWithTag("Spawn").transform.rotation;
+
+		int number = Random.Range (0, 3);
+		if (number == 0)
+			SpawnList.Add (Tank);
+		else if(number == 1)
+			SpawnList.Add (Bruiser);
+		else
+			SpawnList.Add (Pipsqueak);
 		
-		instObj = Instantiate(Tank, spawnPos, rotate);
+		instObj = Instantiate(SpawnList[0], spawnPos, rotate);
+		SpawnList.RemoveAt (0);
 		setWaypointsForNPCs();
 	}
 }
