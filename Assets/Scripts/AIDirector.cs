@@ -14,21 +14,27 @@ public class AIDirector : MonoBehaviour {
 	public bool fight;
 	public bool run;
 	
+	public float timeOfLastSpawn = 0.0f;
+	float spawnRate = 0.5f;
+	
 	public GameObject spawn;
 	public Transform Tank;
 	public Transform Bruiser;
 	public Transform Pipsqueak;
 	private Object instObj;
 	public List<Object> SpawnList = new List<Object>();
+	
+	float spawnTime = 5.0f;
 
 	// Use this for initialization
 	void Start () {
-		InvokeRepeating("spawnAgent", 0, 5);
+		
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+		float tempTime = spawnAgent (timeOfLastSpawn, spawnRate);
+		if(tempTime >= 0) timeOfLastSpawn = tempTime;
 	}
 	// -------------------------------------------------------------------------
 	///@Keegan, Kirby, James
@@ -152,20 +158,42 @@ public class AIDirector : MonoBehaviour {
 		}
 	}
 
-	private void spawnAgent(){
+	private float spawnAgent(float lastSpawn, float rate){
 		Vector3 spawnPos = GameObject.FindGameObjectWithTag("Spawn").transform.position;
 		Quaternion rotate = GameObject.FindGameObjectWithTag("Spawn").transform.rotation;
-
-		int number = Random.Range (0, 3);
-		if (number == 0)
-			SpawnList.Add (Tank);
-		else if(number == 1)
-			SpawnList.Add (Bruiser);
-		else
-			SpawnList.Add (Pipsqueak);
 		
-		instObj = Instantiate(SpawnList[0], spawnPos, rotate);
-		SpawnList.RemoveAt (0);
-		setWaypointsForNPCs();
+		if(Time.time > lastSpawn + rate) {
+			int number = Random.Range (0, 3);
+			if (number == 0) {
+				SpawnList.Add (Tank);
+			}
+			
+			else if(number == 1) {
+				SpawnList.Add (Bruiser);
+			}
+			
+			else {
+				SpawnList.Add (Pipsqueak);
+			}
+			
+			instObj = Instantiate(SpawnList[0], spawnPos, rotate);
+			SpawnList.RemoveAt (0);
+			setWaypointsForNPCs();
+			
+			if (number == 0) {
+				return Time.time+5.0f;
+			}
+			
+			else if(number == 1) {
+				return Time.time+3.0f;
+			}
+			
+			else {
+				return Time.time+1.0f;
+			}
+		}
+		
+		else
+			return -1.0f;
 	}
 }
