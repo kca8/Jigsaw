@@ -112,7 +112,7 @@ public class Sentry : MonoBehaviour {
 		{
 			currentWaypoint++;
 			if (waypoint_goto == goal){
-				levelManager.LoadNextLevel();
+				levelManager.LoadNextLevel(gameObject.name);
 			}
 			waypoint_goto = waypointList[currentWaypoint];
 		}
