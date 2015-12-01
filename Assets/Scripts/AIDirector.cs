@@ -15,7 +15,7 @@ public class AIDirector : MonoBehaviour {
 	public bool run;
 	
 	public float timeOfLastSpawn = 0.0f;
-	float spawnRate = 0.5f;
+	float spawnRate = 0.0f;
 	
 	public GameObject spawn;
 	public Transform Tank;
@@ -161,18 +161,23 @@ public class AIDirector : MonoBehaviour {
 	private float spawnAgent(float lastSpawn, float rate){
 		Vector3 spawnPos = GameObject.FindGameObjectWithTag("Spawn").transform.position;
 		Quaternion rotate = GameObject.FindGameObjectWithTag("Spawn").transform.rotation;
+		float returnTime;
 		
 		if(Time.time > lastSpawn + rate) {
 			int number = Random.Range (0, 3);
+			
 			if (number == 0) {
+				returnTime = Time.time+5.0f;
 				SpawnList.Add (Tank);
 			}
 			
 			else if(number == 1) {
+				returnTime = Time.time+3.0f;
 				SpawnList.Add (Bruiser);
 			}
 			
 			else {
+				returnTime = Time.time+1.0f;
 				SpawnList.Add (Pipsqueak);
 			}
 			
@@ -180,17 +185,7 @@ public class AIDirector : MonoBehaviour {
 			SpawnList.RemoveAt (0);
 			setWaypointsForNPCs();
 			
-			if (number == 0) {
-				return Time.time+5.0f;
-			}
-			
-			else if(number == 1) {
-				return Time.time+3.0f;
-			}
-			
-			else {
-				return Time.time+1.0f;
-			}
+			return returnTime;
 		}
 		
 		else
