@@ -112,23 +112,23 @@ public class Sentry : MonoBehaviour {
 		transform.position = Vector3.MoveTowards(transform.position, waypoint_goto.position, moveSpeed*Time.deltaTime);
 
 		previousWaypoint = waypointList[i];
-		while (gameObject != null) {
-
-			distanceFrom += Mathf.Abs(transform.position.x) - Mathf.Abs(previousWaypoint.position.x);
-			distanceFrom += Mathf.Abs(transform.position.z) - Mathf.Abs(previousWaypoint.position.z);
-
+//		while (gameObject != null) {
+//
+//			distanceFrom += Mathf.Abs(transform.position.x) - Mathf.Abs(previousWaypoint.position.x);
+//			distanceFrom += Mathf.Abs(transform.position.z) - Mathf.Abs(previousWaypoint.position.z);
+//
 			if(transform.position == waypoint_goto.position)
 			{
 				currentWaypoint++;
-				previousWaypoint = waypointList[i+1];
-				totalDistance += distanceFrom;
-				distanceFrom = 0;
+//				previousWaypoint = waypointList[i+1];
+//				totalDistance += distanceFrom;
+//				distanceFrom = 0;
 				if (waypoint_goto == goal){
 					levelManager.LoadNextLevel(gameObject.name);
 				}
 				waypoint_goto = waypointList[currentWaypoint];
 			}
-		}
+//		}
 	}
 	void OnDestroy(){
 		// add code to send to history to have the distance value of the agent

@@ -22,11 +22,8 @@ public class AIDirector : MonoBehaviour {
 	public Transform Tank;
 	public Transform Bruiser;
 	public Transform Pipsqueak;
-	private Object instObj;
 	public List<Object> SpawnList = new List<Object>();
 	
-	float spawnTime = 5.0f;
-
 	// Use this for initialization
 	void Start () {
 		StartCoroutine(doThis ());
@@ -206,7 +203,7 @@ public class AIDirector : MonoBehaviour {
 		Vector3 spawnPos = GameObject.FindGameObjectWithTag("Spawn").transform.position;
 		Quaternion rotate = GameObject.FindGameObjectWithTag("Spawn").transform.rotation;
 		
-		instObj = Instantiate(SpawnList[0], spawnPos, rotate);
+		Instantiate(SpawnList[0], spawnPos, rotate);
 		agentAttempts++;
 		SpawnList.RemoveAt(0);
 		setWaypointsForNPCs();
