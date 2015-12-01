@@ -19,10 +19,10 @@ public class AIDirector : MonoBehaviour {
 	private int agentAttempts = 0;
 	
 	public GameObject spawn;
-	public Transform Tank;
-	public Transform Bruiser;
-	public Transform Pipsqueak;
-	public List<Object> SpawnList = new List<Object>();
+	public GameObject Tank;
+	public GameObject Bruiser;
+	public GameObject Pipsqueak;
+	public List<GameObject> SpawnList = new List<GameObject>();
 	
 	// Use this for initialization
 	void Start () {
@@ -180,21 +180,20 @@ public class AIDirector : MonoBehaviour {
 		
 		if (agentType == 0) {
 			print ("Adding Tank");
-			returnTime = 5.0f;
 			SpawnList.Add (Tank);
 		}
 		
 		else if(agentType == 1) {
 			print ("Adding Bruiser");
-			returnTime = 3.0f;
 			SpawnList.Add (Bruiser);
 		}
 		
 		else {
 			print ("Adding Pipsqueak");
-			returnTime = 1.0f;
 			SpawnList.Add (Pipsqueak);
 		}
+		
+		returnTime = SpawnList[0].GetComponent<Health>().getHealthValue()/100.0f;
 		
 		return returnTime;
 	}

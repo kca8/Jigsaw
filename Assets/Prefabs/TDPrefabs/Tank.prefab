@@ -92,6 +92,9 @@ MonoBehaviour:
   waypointParent: {fileID: 0}
   searchForObject: 0
   findThis: 
+  previousWaypoint: {fileID: 0}
+  distanceFrom: 0
+  totalDistance: 0
 --- !u!136 &13634780
 CapsuleCollider:
   m_ObjectHideFlags: 1
