@@ -21,7 +21,7 @@ public class Bullet : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider otherObject){
-		print (otherObject);
+		//print (otherObject);
 		if(hostileTags.Contains(otherObject.gameObject.tag)){
 			Health targetHealth = otherObject.gameObject.GetComponent<Health>();
 			if (targetHealth != null) targetHealth.AlterHealth(damage);

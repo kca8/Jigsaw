@@ -25,8 +25,8 @@ public class Sentry : MonoBehaviour {
 	private Vector3 origin;
 	public string findThis;
 	public Transform previousWaypoint;
-	public float distanceFrom;
-	public float totalDistance;
+	public float distanceFrom = 0;
+	public float totalDistance = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -35,6 +35,7 @@ public class Sentry : MonoBehaviour {
 			waypointList.Add(child.transform);
 		}
 		goal = waypointList.Last();
+		previousWaypoint = waypointList.First ();
 	}
 	
 	// Update is called once per frame
@@ -104,32 +105,35 @@ public class Sentry : MonoBehaviour {
 	/// </summary>
 	//-----------------------------------------------------------------
 	void walk(){
-		int i = 0;
 		// rotate towards the target
 		transform.forward = Vector3.RotateTowards(transform.forward, waypoint_goto.position - transform.position, moveSpeed*Time.deltaTime, 0.0f);
 		
 		// move towards the target
 		transform.position = Vector3.MoveTowards(transform.position, waypoint_goto.position, moveSpeed*Time.deltaTime);
 
-		previousWaypoint = waypointList[i];
-//		while (gameObject != null) {
-//
-//			distanceFrom += Mathf.Abs(transform.position.x) - Mathf.Abs(previousWaypoint.position.x);
-//			distanceFrom += Mathf.Abs(transform.position.z) - Mathf.Abs(previousWaypoint.position.z);
-//
-			if(transform.position == waypoint_goto.position)
-			{
-				currentWaypoint++;
-//				previousWaypoint = waypointList[i+1];
-//				totalDistance += distanceFrom;
-//				distanceFrom = 0;
-				if (waypoint_goto == goal){
-					levelManager.LoadNextLevel(gameObject.name);
-				}
-				waypoint_goto = waypointList[currentWaypoint];
+	
+
+
+		float distanceFromX = Mathf.Abs(transform.position.x - previousWaypoint.position.x);
+		print("distance X:" + distanceFromX + "xxxx");
+		float distanceFromZ = Mathf.Abs(transform.position.z - previousWaypoint.position.z);
+		print("distance Z:" + distanceFromZ + "zzzz");
+		distanceFrom = distanceFromX + distanceFromZ;
+		print("total:" + distanceFrom + "TTTTTTTTTTTTTTT");
+		if(transform.position == waypoint_goto.position)
+		{
+			currentWaypoint++;
+			previousWaypoint = waypointList[currentWaypoint - 1];
+			distanceFrom = 0;
+			//print (totalDistance);
+			if (waypoint_goto == goal){
+				levelManager.LoadNextLevel(gameObject.name);
 			}
-//		}
+			waypoint_goto = waypointList[currentWaypoint];
+		}
 	}
+
+
 	void OnDestroy(){
 		// add code to send to history to have the distance value of the agent
 		// that was maliciously destroyed trying to do its duty.

@@ -41,7 +41,7 @@ public class AIDirector : MonoBehaviour {
 		
 		while(timeOfLastSpawn >= 0){
 			timeToSpawn = calcSpawnTime(decideAgentToSpawn());
-			yield return new WaitForSeconds(timeToSpawn);
+			yield return new WaitForSeconds(timeToSpawn );
 			spawnAgent();
 		}
 	}
