@@ -15,7 +15,8 @@ public class AIDirector : MonoBehaviour {
 	public bool run;
 	
 	public float timeOfLastSpawn = 0.0f;
-	float spawnRate = 0.0f;
+	
+	private int agentAttempts = 0;
 	
 	public GameObject spawn;
 	public Transform Tank;
@@ -28,19 +29,12 @@ public class AIDirector : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
 		StartCoroutine(doThis ());
-		
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		//float tempTime = spawnAgent (timeOfLastSpawn, spawnRate);
-		//if(tempTime >= 0) timeOfLastSpawn = tempTime;
-		
-//		float timeToSpawn = calcSpawnTime(decideAgentToSpawn());
-//		yield return new WaitForSeconds(timeToSpawn);
-//		spawnAgent();
+	
 	}
 	
 	IEnumerator doThis() {
@@ -63,9 +57,6 @@ public class AIDirector : MonoBehaviour {
 	/// attack or run from the player based on probablity calculations.
 	/// Sets either the fight or run local boolean variables to true when calling this function.
 	///</summary>
-	/// 
-	///
-	///
 	// -------------------------------------------------------------------------
 	public void CalculateStrat(){
 		print ("inCalculate");
@@ -216,37 +207,12 @@ public class AIDirector : MonoBehaviour {
 		Quaternion rotate = GameObject.FindGameObjectWithTag("Spawn").transform.rotation;
 		
 		instObj = Instantiate(SpawnList[0], spawnPos, rotate);
+		agentAttempts++;
 		SpawnList.RemoveAt(0);
 		setWaypointsForNPCs();
 	}
 	
-//	private void spawnAgent(float lastSpawn, float rate){
-//		Vector3 spawnPos = GameObject.FindGameObjectWithTag("Spawn").transform.position;
-//		Quaternion rotate = GameObject.FindGameObjectWithTag("Spawn").transform.rotation;
-//		
-//				if(Time.time > lastSpawn + rate) {
-//					int number = Random.Range (0, 3);
-//					
-//					if (number == 0) {
-//						returnTime = Time.time+5.0f;
-//						SpawnList.Add (Tank);
-//					}
-//					
-//					else if(number == 1) {
-//						returnTime = Time.time+3.0f;
-//						SpawnList.Add (Bruiser);
-//					}
-//					
-//					else {
-//						returnTime = Time.time+1.0f;
-//						SpawnList.Add (Pipsqueak);
-//					}
-//				}
-//		
-//		if(Time.time > lastSpawn + rate) {
-//			instObj = Instantiate(SpawnList[0], spawnPos, rotate);
-//			SpawnList.RemoveAt(0);
-//			setWaypointsForNPCs();
-//		}
-//	}
+	public int getAgentAttempts(){
+		return agentAttempts;
+	}
 }
