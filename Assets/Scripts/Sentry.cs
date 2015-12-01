@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class Sentry : MonoBehaviour {
 
 	public Transform target; //the enemy's target
+	private Transform goal; //the goal to reach
 	public float sight = 5.0f; //Sight radius of the agent
 	public float moveSpeed = 3; //move speed
 	public float rotationSpeed = 2; //speed of turning
@@ -18,17 +20,18 @@ public class Sentry : MonoBehaviour {
 	List<Transform> waypointPath = new List<Transform>(); //An array of waypoint_goto's
 	
 	public bool searchForObject = false;
-	
+
+	private LevelManager levelManager;
 	private Vector3 origin;
 	public string findThis;
 	
 	// Use this for initialization
 	void Start () {
-		
+		levelManager = GameObject.FindObjectOfType<LevelManager>();
 		foreach (Transform child in waypointParent){
 			waypointList.Add(child.transform);
 		}
-		
+		goal = waypointList.Last();
 	}
 	
 	// Update is called once per frame
@@ -108,6 +111,9 @@ public class Sentry : MonoBehaviour {
 		if(transform.position == waypoint_goto.position)
 		{
 			currentWaypoint++;
+			if (waypoint_goto == goal){
+				levelManager.LoadNextLevel();
+			}
 			waypoint_goto = waypointList[currentWaypoint];
 		}
 		
