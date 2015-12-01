@@ -29,7 +29,7 @@ public class LevelManager : MonoBehaviour {
 
 	public void LoadNextLevel(string nameOfAgent){
 		agentName = nameOfAgent;
-		//agentsAttempted = aid.agentCount;
+		agentsAttempted = aid.getAgentAttempts();
 		timeElapsed = Time.time - startTime;
 		Application.LoadLevel (Application.loadedLevel + 1);
 	}
