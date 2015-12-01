@@ -28,14 +28,33 @@ public class AIDirector : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+	
+		StartCoroutine(doThis ());
 		
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		float tempTime = spawnAgent (timeOfLastSpawn, spawnRate);
-		if(tempTime >= 0) timeOfLastSpawn = tempTime;
+		//float tempTime = spawnAgent (timeOfLastSpawn, spawnRate);
+		//if(tempTime >= 0) timeOfLastSpawn = tempTime;
+		
+//		float timeToSpawn = calcSpawnTime(decideAgentToSpawn());
+//		yield return new WaitForSeconds(timeToSpawn);
+//		spawnAgent();
 	}
+	
+	IEnumerator doThis() {
+		//float tempTime = spawnAgent (timeOfLastSpawn, spawnRate);
+		//if(tempTime >= 0) timeOfLastSpawn = tempTime;
+		float timeToSpawn = 1.0f;
+		
+		while(timeOfLastSpawn >= 0){
+			timeToSpawn = calcSpawnTime(decideAgentToSpawn());
+			yield return new WaitForSeconds(timeToSpawn);
+			spawnAgent();
+		}
+	}
+	
 	// -------------------------------------------------------------------------
 	///@Keegan, Kirby, James
 	///@author Kirby Gagne
@@ -157,38 +176,77 @@ public class AIDirector : MonoBehaviour {
 			npc.gameObject.GetComponent<Sentry>().addNewWaypointParent(waypointList);
 		}
 	}
-
-	private float spawnAgent(float lastSpawn, float rate){
-		Vector3 spawnPos = GameObject.FindGameObjectWithTag("Spawn").transform.position;
-		Quaternion rotate = GameObject.FindGameObjectWithTag("Spawn").transform.rotation;
-		float returnTime;
+	
+	private int decideAgentToSpawn() {
+		//0 is Tank
+		//1 is Bruiser
+		//2 is Pipsqueak
+		int number = Random.Range (0, 3);
 		
-		if(Time.time > lastSpawn + rate) {
-			int number = Random.Range (0, 3);
-			
-			if (number == 0) {
-				returnTime = Time.time+5.0f;
-				SpawnList.Add (Tank);
-			}
-			
-			else if(number == 1) {
-				returnTime = Time.time+3.0f;
-				SpawnList.Add (Bruiser);
-			}
-			
-			else {
-				returnTime = Time.time+1.0f;
-				SpawnList.Add (Pipsqueak);
-			}
-			
-			instObj = Instantiate(SpawnList[0], spawnPos, rotate);
-			SpawnList.RemoveAt (0);
-			setWaypointsForNPCs();
-			
-			return returnTime;
+		return number;
+	}
+	
+	private float calcSpawnTime(int agentType){
+		float returnTime = 0.0f;
+		print ("In calcSpawnTime");
+		
+		if (agentType == 0) {
+			print ("Adding Tank");
+			returnTime = 5.0f;
+			SpawnList.Add (Tank);
 		}
 		
-		else
-			return -1.0f;
+		else if(agentType == 1) {
+			print ("Adding Bruiser");
+			returnTime = 3.0f;
+			SpawnList.Add (Bruiser);
+		}
+		
+		else {
+			print ("Adding Pipsqueak");
+			returnTime = 1.0f;
+			SpawnList.Add (Pipsqueak);
+		}
+		
+		return returnTime;
 	}
+
+	private void spawnAgent(){
+		Vector3 spawnPos = GameObject.FindGameObjectWithTag("Spawn").transform.position;
+		Quaternion rotate = GameObject.FindGameObjectWithTag("Spawn").transform.rotation;
+		
+		instObj = Instantiate(SpawnList[0], spawnPos, rotate);
+		SpawnList.RemoveAt(0);
+		setWaypointsForNPCs();
+	}
+	
+//	private void spawnAgent(float lastSpawn, float rate){
+//		Vector3 spawnPos = GameObject.FindGameObjectWithTag("Spawn").transform.position;
+//		Quaternion rotate = GameObject.FindGameObjectWithTag("Spawn").transform.rotation;
+//		
+//				if(Time.time > lastSpawn + rate) {
+//					int number = Random.Range (0, 3);
+//					
+//					if (number == 0) {
+//						returnTime = Time.time+5.0f;
+//						SpawnList.Add (Tank);
+//					}
+//					
+//					else if(number == 1) {
+//						returnTime = Time.time+3.0f;
+//						SpawnList.Add (Bruiser);
+//					}
+//					
+//					else {
+//						returnTime = Time.time+1.0f;
+//						SpawnList.Add (Pipsqueak);
+//					}
+//				}
+//		
+//		if(Time.time > lastSpawn + rate) {
+//			instObj = Instantiate(SpawnList[0], spawnPos, rotate);
+//			SpawnList.RemoveAt(0);
+//			setWaypointsForNPCs();
+//		}
+//	}
 }
