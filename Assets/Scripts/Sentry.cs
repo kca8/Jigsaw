@@ -24,7 +24,10 @@ public class Sentry : MonoBehaviour {
 	private LevelManager levelManager;
 	private Vector3 origin;
 	public string findThis;
-	
+	public Transform previousWaypoint;
+	public float distanceFrom;
+	public float totalDistance;
+
 	// Use this for initialization
 	void Start () {
 		levelManager = GameObject.FindObjectOfType<LevelManager>();
@@ -101,22 +104,35 @@ public class Sentry : MonoBehaviour {
 	/// </summary>
 	//-----------------------------------------------------------------
 	void walk(){
-		
+		int i = 0;
 		// rotate towards the target
 		transform.forward = Vector3.RotateTowards(transform.forward, waypoint_goto.position - transform.position, moveSpeed*Time.deltaTime, 0.0f);
 		
 		// move towards the target
 		transform.position = Vector3.MoveTowards(transform.position, waypoint_goto.position, moveSpeed*Time.deltaTime);
-		
-		if(transform.position == waypoint_goto.position)
-		{
-			currentWaypoint++;
-			if (waypoint_goto == goal){
-				levelManager.LoadNextLevel(gameObject.name);
+
+		previousWaypoint = waypointList[i];
+		while (gameObject != null) {
+
+			distanceFrom += Mathf.Abs(transform.position.x) - Mathf.Abs(previousWaypoint.position.x);
+			distanceFrom += Mathf.Abs(transform.position.z) - Mathf.Abs(previousWaypoint.position.z);
+
+			if(transform.position == waypoint_goto.position)
+			{
+				currentWaypoint++;
+				previousWaypoint = waypointList[i+1];
+				totalDistance += distanceFrom;
+				distanceFrom = 0;
+				if (waypoint_goto == goal){
+					levelManager.LoadNextLevel(gameObject.name);
+				}
+				waypoint_goto = waypointList[currentWaypoint];
 			}
-			waypoint_goto = waypointList[currentWaypoint];
 		}
-		
+	}
+	void OnDestroy(){
+		// add code to send to history to have the distance value of the agent
+		// that was maliciously destroyed trying to do its duty.
 	}
 	
 	void findPath(Vector3 center, float radius, string refTag) {
