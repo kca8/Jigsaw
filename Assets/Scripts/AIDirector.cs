@@ -23,7 +23,8 @@ public class AIDirector : MonoBehaviour {
 	public GameObject Bruiser;
 	public GameObject Pipsqueak;
 	public List<GameObject> SpawnList = new List<GameObject>();
-	
+	// this 
+	public Sentry.agentData DataStruct;	
 	// Use this for initialization
 	void Start () {
 		StartCoroutine(doThis ());

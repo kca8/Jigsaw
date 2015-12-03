@@ -20,13 +20,20 @@ public class Sentry : MonoBehaviour {
 	List<Transform> waypointPath = new List<Transform>(); //An array of waypoint_goto's
 	
 	public bool searchForObject = false;
-
 	private LevelManager levelManager;
 	private Vector3 origin;
 	public string findThis;
 	public Transform previousWaypoint;
 	public float distanceFrom = 0;
 	public float totalDistance = 0;
+
+	// Struct that holds the agent that spawned which you can access its id
+	// And its total distance
+	public struct agentData
+	{
+		public GameObject agent;
+		public float distance;
+	};
 
 	// Use this for initialization
 	void Start () {
@@ -135,8 +142,12 @@ public class Sentry : MonoBehaviour {
 
 
 	void OnDestroy(){
-		// add code to send to history to have the distance value of the agent
-		// that was maliciously destroyed trying to do its duty.
+		agentData Data = new agentData ();
+		// Data.agent will be set to the actual gameObject of the particular agent.
+		// please check if this is ok.
+		Data.agent = gameObject;
+		Data.distance = totalDistance;
+
 	}
 	
 	void findPath(Vector3 center, float radius, string refTag) {
