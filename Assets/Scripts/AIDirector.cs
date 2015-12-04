@@ -310,11 +310,12 @@ public class AIDirector : MonoBehaviour {
 		Debug.Log (npc.GetComponent<Sentry>().getAgentData().getInitial());
 
 		History.Add(tempData);
-		if (History[agentAttempts] == null) Debug.Log (agentAttempts + " was null");
-		Debug.Log ("History ID : " + History[agentAttempts].getInitial());
-		Debug.Log ("History: " + History.Count());
+		//if (History[agentAttempts] == null) Debug.Log (agentAttempts + " was null");
+		//Debug.Log ("History ID : " + History[agentAttempts].getInitial());
+		//Debug.Log ("History: " + History.Count());
 		agentAttempts++;
 		SpawnList.RemoveAt(0);
+		Debug.Log ("After SpawnList Remove");
 		setWaypointsForNPCs();
 	}
 	
