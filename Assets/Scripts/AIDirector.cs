@@ -50,6 +50,7 @@ public class AIDirector : MonoBehaviour {
 		
 		while(timeOfLastSpawn >= 0){
 			timeToSpawn = calcSpawnTime(decideAgentToSpawn());
+			updateHistory();
 			yield return new WaitForSeconds(timeToSpawn );
 			spawnAgent();
 		}
@@ -214,6 +215,19 @@ public class AIDirector : MonoBehaviour {
 		return number;
 	}
 	
+	private void updateHistory(){
+		if(DeathList.Count() != 0){
+			for(int i=0;i<DeathList.Count()-1;i++){
+				int deathID = DeathList[i].getAgent().GetInstanceID();
+				
+				for(int j=0;j<History.Count()-1;j++){
+					if(History[j].getAgent().GetInstanceID() == deathID)
+						History[j].setDistance(DeathList[i].getDistance());
+				}
+			}
+		}
+	}
+	
 	private float calcSpawnTime(int agentType){
 		float returnTime = 0.0f;
 		print ("In calcSpawnTime");
@@ -242,7 +256,11 @@ public class AIDirector : MonoBehaviour {
 		Vector3 spawnPos = GameObject.FindGameObjectWithTag("Spawn").transform.position;
 		Quaternion rotate = GameObject.FindGameObjectWithTag("Spawn").transform.rotation;
 		
-		Instantiate(SpawnList[0], spawnPos, rotate);
+		GameObject npc = Instantiate(SpawnList[0], spawnPos, rotate) as GameObject;
+		History.Add(npc.GetComponent<Sentry>().getAgentData());
+		//SpawnList[0].gameObject.GetComponent<Sentry>().getAgentData().setAgent(SpawnList[0]);
+		print ("History Item: " + History[0].ToString());
+		print ("History: " + History.Count());
 		agentAttempts++;
 		SpawnList.RemoveAt(0);
 		setWaypointsForNPCs();

@@ -26,9 +26,12 @@ public class Sentry : MonoBehaviour {
 	public Transform previousWaypoint;
 	public float distanceFrom = 0;
 	public float totalDistance = 0;
-
+	
+	private AgentData Data = new AgentData();
+	
 	// Use this for initialization
 	void Start () {
+		Data.setAgent(gameObject);
 		levelManager = GameObject.FindObjectOfType<LevelManager>();
 		foreach (Transform child in waypointParent){
 			waypointList.Add(child.transform);
@@ -128,7 +131,6 @@ public class Sentry : MonoBehaviour {
 
 	void OnDestroy(){
 		totalDistance += distanceFrom;
-		AgentData Data = new AgentData();
 		// Data.agent will be set to the actual gameObject of the particular agent.
 		// please check if this is ok.
 		Data.setAgent(gameObject);
@@ -151,8 +153,6 @@ public class Sentry : MonoBehaviour {
 		
 		print("Found objects = " + waypointPath.Count + "\n");
 	}
-	
-	
 	
 	void sortPathByDist() {
 		waypointPath.Sort(SortByDist);
@@ -187,5 +187,9 @@ public class Sentry : MonoBehaviour {
 		foreach (Transform child in waypointParent){
 			waypointList.Add(child.transform);
 		}
+	}
+	
+	public AgentData getAgentData(){
+		return Data;
 	}
 }
