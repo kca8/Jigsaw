@@ -10,6 +10,7 @@ public class AgentData : MonoBehaviour {
 		public GameObject agent;
 		public float distance;
 	};
+	
 	agentData Agent;
 	
 	// Use this for initialization
