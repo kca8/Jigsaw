@@ -31,6 +31,10 @@ public class AgentData{
 	public string getInitial(){
 		return initial;
 	}
+	
+	public int getOtherAgents(){
+		return otherAgents;
+	}
 
 	public void setDistance(float newDistance){
 		distance = newDistance;
@@ -42,6 +46,10 @@ public class AgentData{
 
 	public void setInitial(string newInitial){
 		initial = newInitial;
+	}
+	
+	public void setOtherAgents(int newOther){
+		otherAgents = newOther;
 	}
 	
 //	public string ToString(){
