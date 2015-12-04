@@ -231,7 +231,21 @@ public class AIDirector : MonoBehaviour {
 					else Debug.Log ("Death ID of " + deathID + "not matched to anything!!!!!");
 				}
 			}
-		}
+			//start
+			int counter = 0;
+			for(int dl = 0; dl < DeathList.Count-1; dl = 0){
+			
+				int deathID = DeathList[dl].getID();
+				for(int hl = 0; hl < History.Count-1; hl++){
+					if(deathID == History[hl].getID()){
+
+					}
+					else{
+						counter++;
+					}
+				}
+			}
+			
 	}
 	
 	private float calcSpawnTime(int agentType){
