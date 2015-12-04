@@ -6,7 +6,7 @@ public class AgentData{
 	private int id;	
 	private string initial;
 	private float distance;
-	//private int otherAgents;
+	private int otherAgents;
 	
 	// Use this for initialization
 	void Start () {
