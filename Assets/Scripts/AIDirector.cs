@@ -27,9 +27,9 @@ public class AIDirector : MonoBehaviour {
 	public List<AgentData> DeathList = new List<AgentData>();
 	public List<AgentData> History = new List<AgentData>();
 	
-	private string[] bpattsf; //best pattern so far
-	private int bpsfIndex; //current index of current emulation of best pattern so far
-	private float bvalsf; //best value from best pattern so far
+	public string[] bpattsf; //best pattern so far
+	public int bpsfIndex; //current index of current emulation of best pattern so far
+	public float bvalsf; //best value from best pattern so far
 	
 	// Use this for initialization
 	void Start () {
@@ -252,6 +252,7 @@ public class AIDirector : MonoBehaviour {
 							potentialP.Reverse();
 							bpattsf = potentialP.ToArray();
 							bvalsf = potentialVal;
+							bpsfIndex = 0;
 						}
 						else{
 							potentialP.Clear();
@@ -310,9 +311,9 @@ public class AIDirector : MonoBehaviour {
 		Debug.Log (npc.GetComponent<Sentry>().getAgentData().getInitial());
 
 		History.Add(tempData);
-		if (History[agentAttempts] == null) Debug.Log (agentAttempts + " was null");
-		Debug.Log ("History ID : " + History[agentAttempts].getInitial());
-		Debug.Log ("History: " + History.Count());
+//		if (History[agentAttempts] == null) Debug.Log (agentAttempts + " was null");
+//		Debug.Log ("History ID : " + History[agentAttempts].getInitial());
+//		Debug.Log ("History: " + History.Count());
 		agentAttempts++;
 		SpawnList.RemoveAt(0);
 		setWaypointsForNPCs();
