@@ -1,28 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AgentData {
+public class AgentData{
 
-	// Struct that holds the agent that spawned which you can access its id
-	// And its total distance
-//	public struct agentData
-//	{
-//		public GameObject agent;
-//		public int otherAgents;
-//		public float distance;
-//	};
-	
-//	agentData Agent = new agentData();
-	
-	
-	private GameObject agent;
-	private int otherAgents;
+	private int id;	
+	private string initial;
 	private float distance;
+	//private int otherAgents;
 	
 	// Use this for initialization
 	void Start () {
-		agent = null;
-		otherAgents = 0;
+		id = -1;
+		initial = "X";
 		distance = 0f;
 	}
 	
@@ -31,24 +20,31 @@ public class AgentData {
 	
 	}
 	
-	public GameObject getAgent(){
-	
-		return agent;
-	}
-	
 	public float getDistance(){
 		return distance;
 	}
-	
-	public void setAgent(GameObject newAgent){
-		agent = newAgent;
+
+	public int getID(){
+		return id;
 	}
-	
+
+	public string getInitial(){
+		return initial;
+	}
+
 	public void setDistance(float newDistance){
 		distance = newDistance;
 	}
-	
-	public string ToString(){
-		return "" + agent;
+
+	public void setID(int newID){
+		id = newID;
 	}
+
+	public void setInitial(string newInitial){
+		initial = newInitial;
+	}
+	
+//	public string ToString(){
+//		return "" + agent;
+//	}
 }

@@ -16,7 +16,6 @@ public class Sentry : MonoBehaviour {
 	public Transform waypointParent; //The object containing a set of waypoint_goto's
 	Transform waypoint_goto; //The current waypoint objective
 	List<Transform> waypointList = new List<Transform>(); //An array of waypoint_goto's
-	//public Waypoint thisWaypoint;
 	List<Transform> waypointPath = new List<Transform>(); //An array of waypoint_goto's
 	
 	public bool searchForObject = false;
@@ -26,12 +25,11 @@ public class Sentry : MonoBehaviour {
 	public Transform previousWaypoint;
 	public float distanceFrom = 0;
 	public float totalDistance = 0;
-	
-	private AgentData Data = new AgentData();
+
+	public AgentData data;
 	
 	// Use this for initialization
 	void Start () {
-		Data.setAgent(gameObject);
 		levelManager = GameObject.FindObjectOfType<LevelManager>();
 		foreach (Transform child in waypointParent){
 			waypointList.Add(child.transform);
@@ -119,8 +117,8 @@ public class Sentry : MonoBehaviour {
 		{
 			currentWaypoint++;
 			previousWaypoint = waypointList[currentWaypoint - 1];
+			totalDistance += distanceFrom;
 			distanceFrom = 0;
-			//print (totalDistance);
 			if (waypoint_goto == goal){
 				levelManager.LoadNextLevel(gameObject.name);
 			}
@@ -131,13 +129,10 @@ public class Sentry : MonoBehaviour {
 
 	void OnDestroy(){
 		totalDistance += distanceFrom;
-		// Data.agent will be set to the actual gameObject of the particular agent.
-		// please check if this is ok.
-		Data.setAgent(gameObject);
-		Data.setDistance(totalDistance);
-		print(Data.getAgent ());
-		print (Data.getDistance ());
-		GameObject.FindGameObjectWithTag("AIDirector").GetComponent<AIDirector>().addToDeathList(Data);
+		data.setDistance(totalDistance);
+
+
+		GameObject.FindGameObjectWithTag("AIDirector").GetComponent<AIDirector>().addToDeathList(data);
 	}
 	
 	void findPath(Vector3 center, float radius, string refTag) {
@@ -190,6 +185,10 @@ public class Sentry : MonoBehaviour {
 	}
 	
 	public AgentData getAgentData(){
-		return Data;
+		return data;
+	}
+
+	public void setAgentData(AgentData newData){
+		data = newData;
 	}
 }

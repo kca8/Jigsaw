@@ -6980,8 +6980,6 @@ MonoBehaviour:
   Bruiser: {fileID: 115710, guid: d63fc8985d80d584c94f6adc70836502, type: 2}
   Pipsqueak: {fileID: 166490, guid: fba726d8e8721c94eb9715dc5234ec77, type: 2}
   SpawnList: []
-  DeathList: []
-  History: []
 --- !u!4 &2067234594
 Transform:
   m_ObjectHideFlags: 0
@@ -7338,7 +7336,6 @@ GameObject:
   - 33: {fileID: 2135330569}
   - 64: {fileID: 2135330568}
   - 23: {fileID: 2135330567}
-  - 114: {fileID: 2135330571}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -7398,30 +7395,3 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
---- !u!114 &2135330571
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2135330566}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbae867a4dc8ae8499e92362bf9cd374, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player_health: 0
-  NPC_health: 0
-  NPC_Type: 
-  calc: 0
-  calc_ans: 0
-  ans: 0
-  fight: 0
-  run: 0
-  timeOfLastSpawn: 0
-  spawn: {fileID: 0}
-  Tank: {fileID: 0}
-  Bruiser: {fileID: 0}
-  Pipsqueak: {fileID: 0}
-  SpawnList: []
-  DeathList: []
-  History: []

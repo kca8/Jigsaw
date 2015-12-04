@@ -216,13 +216,19 @@ public class AIDirector : MonoBehaviour {
 	}
 	
 	private void updateHistory(){
+		Debug.Log ("Updating History");
 		if(DeathList.Count() != 0){
-			for(int i=0;i<DeathList.Count()-1;i++){
-				int deathID = DeathList[i].getAgent().GetInstanceID();
-				
-				for(int j=0;j<History.Count()-1;j++){
-					if(History[j].getAgent().GetInstanceID() == deathID)
+			for(int i = 0; i < DeathList.Count() - 1; i++){
+				int deathID = DeathList[i].getID();
+				Debug.Log ("Death ID " + i + " is : " + deathID + " and name is " + DeathList[i].getInitial());
+				for(int j=0; j < History.Count() - 1; j++){
+					if(History[j].getID() == deathID){
+						Debug.Log ("Found ID at " + j + " of " + History[j].getID() + " with a name of " + History[j].getInitial());
+						Debug.Log ("Death distance is " + DeathList[i].getDistance());
 						History[j].setDistance(DeathList[i].getDistance());
+						Debug.Log ("History has distance of " + History[j].getDistance());
+					}
+					else Debug.Log ("Death ID of " + deathID + "not matched to anything!!!!!");
 				}
 			}
 		}
@@ -257,10 +263,21 @@ public class AIDirector : MonoBehaviour {
 		Quaternion rotate = GameObject.FindGameObjectWithTag("Spawn").transform.rotation;
 		
 		GameObject npc = Instantiate(SpawnList[0], spawnPos, rotate) as GameObject;
-		History.Add(npc.GetComponent<Sentry>().getAgentData());
-		//SpawnList[0].gameObject.GetComponent<Sentry>().getAgentData().setAgent(SpawnList[0]);
-		print ("History Item: " + History[0].ToString());
-		print ("History: " + History.Count());
+		AgentData tempData = new AgentData();
+		Debug.Log ("ID from npc : " + npc.GetInstanceID());
+		tempData.setID(npc.GetInstanceID());
+		Debug.Log ("ID from data : " + tempData.getID());
+		Debug.Log ("Name from npc : " + npc.name);
+		tempData.setInitial(npc.name);
+		Debug.Log ("Name from data : " + tempData.getInitial());
+
+		npc.GetComponent<Sentry>().setAgentData(tempData);
+		Debug.Log (npc.GetComponent<Sentry>().getAgentData().getInitial());
+
+		History.Add(tempData);
+		if (History[agentAttempts] == null) Debug.Log (agentAttempts + " was null");
+		Debug.Log ("History ID : " + History[agentAttempts].getInitial());
+		Debug.Log ("History: " + History.Count());
 		agentAttempts++;
 		SpawnList.RemoveAt(0);
 		setWaypointsForNPCs();
