@@ -137,6 +137,7 @@ public class Sentry : MonoBehaviour {
 		// please check if this is ok.
 		Data.setAgent(gameObject);
 		Data.setDistance(totalDistance);
+		gameObject.GetComponent<AIDirector>().DeathList.Add (Data);
 
 	}
 	
