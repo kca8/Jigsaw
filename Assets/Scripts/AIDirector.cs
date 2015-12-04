@@ -267,6 +267,8 @@ public class AIDirector : MonoBehaviour {
 		Debug.Log ("ID from npc : " + npc.GetInstanceID());
 		tempData.setID(npc.GetInstanceID());
 		Debug.Log ("ID from data : " + tempData.getID());
+		tempData.setOtherAgents(findOtherAgents());
+		Debug.Log ("OtherAgents : " + tempData.getOtherAgents());
 		Debug.Log ("Name from npc : " + npc.name);
 		tempData.setInitial(npc.name);
 		Debug.Log ("Name from data : " + tempData.getInitial());
@@ -289,5 +291,16 @@ public class AIDirector : MonoBehaviour {
 	
 	public void addToDeathList(AgentData data){
 		DeathList.Add (data);
+	}
+	
+	private int findOtherAgents(){
+		int otherAgents = 0;
+		var objects = GameObject.FindGameObjectsWithTag("Enemy");
+		
+		foreach(var npc in objects){
+			otherAgents++;
+		}
+		
+		return otherAgents-1;
 	}
 }

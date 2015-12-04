@@ -6,7 +6,7 @@ public class AgentData{
 	private int id;	
 	private string initial;
 	private float distance;
-	//private int otherAgents;
+	private int otherAgents;
 	
 	// Use this for initialization
 	void Start () {
@@ -31,6 +31,10 @@ public class AgentData{
 	public string getInitial(){
 		return initial;
 	}
+	
+	public int getOtherAgents(){
+		return otherAgents;
+	}
 
 	public void setDistance(float newDistance){
 		distance = newDistance;
@@ -42,6 +46,10 @@ public class AgentData{
 
 	public void setInitial(string newInitial){
 		initial = newInitial;
+	}
+	
+	public void setOtherAgents(int newOther){
+		otherAgents = newOther;
 	}
 	
 //	public string ToString(){
