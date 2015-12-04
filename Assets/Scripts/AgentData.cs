@@ -45,7 +45,7 @@ public class AgentData{
 	}
 
 	public void setInitial(string newInitial){
-		initial = newInitial;
+		initial = newInitial[0].ToString();
 	}
 	
 	public void setOtherAgents(int newOther){

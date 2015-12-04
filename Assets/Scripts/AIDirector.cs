@@ -27,14 +27,14 @@ public class AIDirector : MonoBehaviour {
 	public List<AgentData> DeathList = new List<AgentData>();
 	public List<AgentData> History = new List<AgentData>();
 	
-	private string[] emulatedPattern;
-	private int index;
-	private float bpsfVal; 
+	private string[] bpattsf; //best pattern so far
+	private int bpsfIndex; //current index of current emulation of best pattern so far
+	private float bvalsf; //best value from best pattern so far
 	
 	// Use this for initialization
 	void Start () {
-		emulatedPattern = new string[4] {"P", "B", "T", "P"};
-		bpsfVal = 61f;
+		bpattsf = new string[1] {"T"};
+		bvalsf = 61f;
 		StartCoroutine(doThis ());
 	}
 	
@@ -180,38 +180,32 @@ public class AIDirector : MonoBehaviour {
 		//1 is Bruiser
 		//2 is Pipsqueak
 		float bestVal = 87f;
-		float chance = bpsfVal / bestVal;
+		float chance = bvalsf / bestVal;
 		float value = Random.value;
 		int number = -1;
 		if (value > chance) {
-			//			Debug.Log ("random");
-			index = 0;
+			bpsfIndex = 0;
 			number = Random.Range (0, 3);
 		}
 		else {
-			//			Debug.Log ("pattern");
-			if (emulatedPattern[index] == "T"){
+			if (bpattsf[bpsfIndex] == "T"){
 				number = 0;
 			}
-			else if (emulatedPattern[index] == "B"){
+			else if (bpattsf[bpsfIndex] == "B"){
 				number = 1;
 			}
-			else if (emulatedPattern[index] == "P"){
+			else if (bpattsf[bpsfIndex] == "P"){
 				number = 2;
 			}
 			else {
-				Debug.Log("invalid Agent string in emulated pattern at index " + index + "; " + emulatedPattern[index]);
+				Debug.Log("invalid Agent string in emulated pattern at index " + bpsfIndex + "; " + bpattsf[bpsfIndex]);
 				number = -1;
 			}
-			index++;
-			if(index >= emulatedPattern.GetLength(0)){
-				index = 0;
-				//				Debug.Log ("finished pattern");
+			bpsfIndex++;
+			if(bpsfIndex >= bpattsf.GetLength(0)){
+				bpsfIndex = 0;
 			}
 		}
-		//		if(number == 0) Debug.Log ("T");
-		//		else if(number == 1) Debug.Log ("B");
-		//		else if(number == 2) Debug.Log ("P");
 		return number;
 	}
 	
@@ -233,19 +227,37 @@ public class AIDirector : MonoBehaviour {
 			}
 			//start
 			int counter = 0;
-			for(int dl = 0; dl < DeathList.Count-1; dl = 0){
+			List<string> potentialP = new List<string>();
+			float potentialVal = 0;
+			for(int dl = 0; dl <= DeathList.Count-1; dl = 0){
 			
 				int deathID = DeathList[dl].getID();
 				for(int hl = 0; hl < History.Count-1; hl++){
 					if(deathID == History[hl].getID()){
-
+						counter++;
+						for(int bt = counter; bt < counter; bt--){
+							if(potentialVal < History[bt].getDistance()){
+								potentialVal = History[bt].getDistance();
+							}
+							potentialP.Add(History[bt].getInitial());
+						}
+						if(potentialVal > bvalsf){
+							potentialP.Reverse();
+							bpattsf = potentialP.ToArray();
+							bvalsf = potentialVal;
+						}
+						else{
+							potentialP.Clear();
+							DeathList.RemoveAt(0);
+						}
 					}
 					else{
 						counter++;
 					}
 				}
 			}
-			
+
+		}
 	}
 	
 	private float calcSpawnTime(int agentType){
