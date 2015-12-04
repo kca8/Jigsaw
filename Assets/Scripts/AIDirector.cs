@@ -26,8 +26,15 @@ public class AIDirector : MonoBehaviour {
 	public List<GameObject> SpawnList = new List<GameObject>();
 	public List<AgentData> DeathList = new List<AgentData>();
 	public List<AgentData> History = new List<AgentData>();
+	
+	private string[] emulatedPattern;
+	private int index;
+	private float bpsfVal; 
+	
 	// Use this for initialization
 	void Start () {
+		emulatedPattern = new string[4] {"P", "B", "T", "P"};
+		bpsfVal = 61f;
 		StartCoroutine(doThis ());
 	}
 	
@@ -171,8 +178,39 @@ public class AIDirector : MonoBehaviour {
 		//0 is Tank
 		//1 is Bruiser
 		//2 is Pipsqueak
-		int number = Random.Range (0, 3);
-		
+		float bestVal = 87f;
+		float chance = bpsfVal / bestVal;
+		float value = Random.value;
+		int number = -1;
+		if (value > chance) {
+			//			Debug.Log ("random");
+			index = 0;
+			number = Random.Range (0, 3);
+		}
+		else {
+			//			Debug.Log ("pattern");
+			if (emulatedPattern[index] == "T"){
+				number = 0;
+			}
+			else if (emulatedPattern[index] == "B"){
+				number = 1;
+			}
+			else if (emulatedPattern[index] == "P"){
+				number = 2;
+			}
+			else {
+				Debug.Log("invalid Agent string in emulated pattern at index " + index + "; " + emulatedPattern[index]);
+				number = -1;
+			}
+			index++;
+			if(index >= emulatedPattern.GetLength(0)){
+				index = 0;
+				//				Debug.Log ("finished pattern");
+			}
+		}
+		//		if(number == 0) Debug.Log ("T");
+		//		else if(number == 1) Debug.Log ("B");
+		//		else if(number == 2) Debug.Log ("P");
 		return number;
 	}
 	

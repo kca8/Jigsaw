@@ -109,13 +109,9 @@ public class Sentry : MonoBehaviour {
 		
 		// move towards the target
 		transform.position = Vector3.MoveTowards(transform.position, waypoint_goto.position, moveSpeed*Time.deltaTime);
-
-		float distanceFromX = Mathf.Abs(transform.position.x - previousWaypoint.position.x);
-		//print("distance X:" + distanceFromX + "xxxx");
-		float distanceFromZ = Mathf.Abs(transform.position.z - previousWaypoint.position.z);
-		//print("distance Z:" + distanceFromZ + "zzzz");
-		distanceFrom = distanceFromX + distanceFromZ;
-		//print("total:" + distanceFrom + "TTTTTTTTTTTTTTT");
+		
+		distanceFrom = Mathf.Abs(transform.position.x - previousWaypoint.position.x + transform.position.z - previousWaypoint.position.z);
+		
 		if(transform.position == waypoint_goto.position)
 		{
 			currentWaypoint++;
@@ -131,7 +127,7 @@ public class Sentry : MonoBehaviour {
 
 
 	void OnDestroy(){
-		
+		totalDistance += distanceFrom;
 		AgentData Data = new AgentData();
 		// Data.agent will be set to the actual gameObject of the particular agent.
 		// please check if this is ok.
