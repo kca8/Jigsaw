@@ -213,4 +213,8 @@ public class AIDirector : MonoBehaviour {
 	public int getAgentAttempts(){
 		return agentAttempts;
 	}
+	
+	public void addToDeathList(AgentData data){
+		DeathList.Add (data);
+	}
 }

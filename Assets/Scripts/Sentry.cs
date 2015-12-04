@@ -111,11 +111,11 @@ public class Sentry : MonoBehaviour {
 		transform.position = Vector3.MoveTowards(transform.position, waypoint_goto.position, moveSpeed*Time.deltaTime);
 
 		float distanceFromX = Mathf.Abs(transform.position.x - previousWaypoint.position.x);
-		print("distance X:" + distanceFromX + "xxxx");
+		//print("distance X:" + distanceFromX + "xxxx");
 		float distanceFromZ = Mathf.Abs(transform.position.z - previousWaypoint.position.z);
-		print("distance Z:" + distanceFromZ + "zzzz");
+		//print("distance Z:" + distanceFromZ + "zzzz");
 		distanceFrom = distanceFromX + distanceFromZ;
-		print("total:" + distanceFrom + "TTTTTTTTTTTTTTT");
+		//print("total:" + distanceFrom + "TTTTTTTTTTTTTTT");
 		if(transform.position == waypoint_goto.position)
 		{
 			currentWaypoint++;
@@ -137,8 +137,9 @@ public class Sentry : MonoBehaviour {
 		// please check if this is ok.
 		Data.setAgent(gameObject);
 		Data.setDistance(totalDistance);
-		gameObject.GetComponent<AIDirector>().DeathList.Add (Data);
-
+		print(Data.getAgent ());
+		print (Data.getDistance ());
+		GameObject.FindGameObjectWithTag("AIDirector").GetComponent<AIDirector>().addToDeathList(Data);
 	}
 	
 	void findPath(Vector3 center, float radius, string refTag) {

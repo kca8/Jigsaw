@@ -11,11 +11,11 @@ public class AgentData : MonoBehaviour {
 		public float distance;
 	};
 	
-	agentData Agent;
+	agentData Agent = new agentData();
 	
 	// Use this for initialization
 	void Start () {
-		Agent = new agentData();
+		
 	}
 	
 	// Update is called once per frame
@@ -24,6 +24,7 @@ public class AgentData : MonoBehaviour {
 	}
 	
 	public GameObject getAgent(){
+	
 		return Agent.agent;
 	}
 	
