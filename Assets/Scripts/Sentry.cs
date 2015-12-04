@@ -27,14 +27,6 @@ public class Sentry : MonoBehaviour {
 	public float distanceFrom = 0;
 	public float totalDistance = 0;
 
-	// Struct that holds the agent that spawned which you can access its id
-	// And its total distance
-	public struct agentData
-	{
-		public GameObject agent;
-		public float distance;
-	};
-
 	// Use this for initialization
 	void Start () {
 		levelManager = GameObject.FindObjectOfType<LevelManager>();
@@ -118,9 +110,6 @@ public class Sentry : MonoBehaviour {
 		// move towards the target
 		transform.position = Vector3.MoveTowards(transform.position, waypoint_goto.position, moveSpeed*Time.deltaTime);
 
-	
-
-
 		float distanceFromX = Mathf.Abs(transform.position.x - previousWaypoint.position.x);
 		print("distance X:" + distanceFromX + "xxxx");
 		float distanceFromZ = Mathf.Abs(transform.position.z - previousWaypoint.position.z);
@@ -142,11 +131,12 @@ public class Sentry : MonoBehaviour {
 
 
 	void OnDestroy(){
-		agentData Data = new agentData ();
+		
+		AgentData Data = new AgentData();
 		// Data.agent will be set to the actual gameObject of the particular agent.
 		// please check if this is ok.
-		Data.agent = gameObject;
-		Data.distance = totalDistance;
+		Data.setAgent(gameObject);
+		Data.setDistance(totalDistance);
 
 	}
 	

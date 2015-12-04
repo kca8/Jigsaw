@@ -79,6 +79,9 @@ MonoBehaviour:
   waypointParent: {fileID: 0}
   searchForObject: 0
   findThis: 
+  previousWaypoint: {fileID: 0}
+  distanceFrom: 0
+  totalDistance: 0
 --- !u!114 &11415712
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -90,8 +93,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db28bb7a9a36bbf4fbbaae9b9e538540, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 250
-  currentHealth: 250
+  maxHealth: 225
+  currentHealth: 225
 --- !u!136 &13615710
 CapsuleCollider:
   m_ObjectHideFlags: 1
