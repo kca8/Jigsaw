@@ -34,7 +34,7 @@ public class AIDirector : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		bpattsf = new string[1] {"T"};
-		bvalsf = 61f;
+		bvalsf = 0f;
 		StartCoroutine(doThis ());
 	}
 	
@@ -221,8 +221,15 @@ public class AIDirector : MonoBehaviour {
 						Debug.Log ("Death distance is " + DeathList[i].getDistance());
 						History[j].setDistance(DeathList[i].getDistance());
 						Debug.Log ("History has distance of " + History[j].getDistance());
+
+						if(History[j].getOtherAgents() < j){
+							int numExcess = j - History[j].getOtherAgents();
+							for (int k = 0; k < numExcess; numExcess--){
+								History.RemoveAt(k);
+								j--;
+							}
+						}
 					}
-					else Debug.Log ("Death ID of " + deathID + "not matched to anything!!!!!");
 				}
 			}
 
