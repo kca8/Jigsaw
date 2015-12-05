@@ -222,13 +222,13 @@ public class AIDirector : MonoBehaviour {
 						History[j].setDistance(DeathList[i].getDistance());
 						Debug.Log ("History has distance of " + History[j].getDistance());
 
-						if(History[j].getOtherAgents() < j){
-							int numExcess = j - History[j].getOtherAgents();
-							for (int k = 0; k < numExcess; numExcess--){
-								History.RemoveAt(k);
-								j--;
-							}
-						}
+//						if(History[j].getOtherAgents() < j){
+//							int numExcess = j - History[j].getOtherAgents();
+//							for (int k = 0; k < numExcess; numExcess--){
+//								History.RemoveAt(k);
+//								j--;
+//							}
+//						}
 					}
 				}
 			}
@@ -240,13 +240,15 @@ public class AIDirector : MonoBehaviour {
 			
 				int deathID = DeathList[dl].getID();
 				for(int hl = 0; hl < History.Count-1; hl++){
+					int historyID = History[hl].getID();
 					if(deathID == History[hl].getID()){
-						counter++;
-						for(int bt = counter; bt < counter; bt--){
-							if(potentialVal < History[bt].getDistance()){
-								potentialVal = History[bt].getDistance();
+						counter = History[hl].getOtherAgents();
+						for(int bt = 0; bt <= counter; bt++){
+							float currDist = History[hl-bt].getDistance();
+							if(potentialVal < History[hl-bt].getDistance()){
+								potentialVal = History[hl-bt].getDistance();
 							}
-							potentialP.Add(History[bt].getInitial());
+							potentialP.Add(History[hl-bt].getInitial());
 						}
 						if(potentialVal > bvalsf){
 							potentialP.Reverse();
@@ -254,15 +256,11 @@ public class AIDirector : MonoBehaviour {
 							bvalsf = potentialVal;
 							bpsfIndex = 0;
 						}
-						else{
-							potentialP.Clear();
-							DeathList.RemoveAt(0);
-						}
+						potentialP.Clear ();
 					}
-					else{
-						counter++;
-					}
+
 				}
+				DeathList.RemoveAt(0);
 			}
 
 		}
@@ -311,11 +309,12 @@ public class AIDirector : MonoBehaviour {
 		Debug.Log (npc.GetComponent<Sentry>().getAgentData().getInitial());
 
 		History.Add(tempData);
-//		if (History[agentAttempts] == null) Debug.Log (agentAttempts + " was null");
-//		Debug.Log ("History ID : " + History[agentAttempts].getInitial());
-//		Debug.Log ("History: " + History.Count());
+		//if (History[agentAttempts] == null) Debug.Log (agentAttempts + " was null");
+		//Debug.Log ("History ID : " + History[agentAttempts].getInitial());
+		//Debug.Log ("History: " + History.Count());
 		agentAttempts++;
 		SpawnList.RemoveAt(0);
+		Debug.Log ("After SpawnList Remove");
 		setWaypointsForNPCs();
 	}
 	

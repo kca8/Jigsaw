@@ -98,7 +98,7 @@ MonoBehaviour:
   sight: 3.5
   range: 3.5
   rotationSpeed: 10
-  reloadSpeed: .5
+  reloadSpeed: .75
   projSpeed: 20
   timeToLive: 1
   directed: 0
