@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AgentData{
+public class AgentData : MonoBehaviour{
 
 	private int id;	
 	private string initial;
